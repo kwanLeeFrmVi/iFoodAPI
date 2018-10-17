@@ -1,23 +1,43 @@
 package com.ifood.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Objects;
 import java.util.UUID;
 
+@Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Table(name = "\"User\"", schema = "dbo", catalog = "I_Food")
 public class User {
+    @JsonProperty("id")
     private UUID id;
+    @JsonProperty("name")
     private String name;
+    @JsonProperty("description")
     private String description;
+    @JsonProperty("email")
     private String email;
+    @JsonProperty("password")
     private String password;
+    @JsonProperty("phoneNumber")
     private String phoneNumber;
+    @JsonProperty("city")
     private String city;
+    @JsonProperty("district")
     private String district;
+    @JsonProperty("street")
     private String street;
-    private Boolean isDelete;
+    @JsonProperty("isDelete")
+    private boolean isDelete;
 
     @Id
     @GenericGenerator(name = "generator", strategy = "guid", parameters = {})
@@ -113,11 +133,11 @@ public class User {
 
     @Basic
     @Column(name = "IsDelete", nullable = true)
-    public Boolean getDelete() {
+    public boolean getDelete() {
         return isDelete;
     }
 
-    public void setDelete(Boolean delete) {
+    public void setDelete(boolean delete) {
         isDelete = delete;
     }
 

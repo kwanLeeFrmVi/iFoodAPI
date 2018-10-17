@@ -5,7 +5,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Category_Course", schema = "dbo", catalog = "I_Food")
+@Table(name = "\"Category_Course\"", schema = "dbo", catalog = "I_Food")
 public class CategoryCourse {
     private int id;
     private UUID categoryId;

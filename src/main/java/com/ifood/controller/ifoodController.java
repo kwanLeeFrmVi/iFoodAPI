@@ -5,21 +5,11 @@ import com.ifood.service.ManageAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/ifood")
 public class ifoodController {
-    @Autowired
-    private ManageAccount manageAccount;
 
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public String getTestValue(){
-        return "Success";
-    }
-
-    @PostMapping("/create")
-    public String createAccount(@RequestBody User newUser){
-        manageAccount.CreateUser(newUser);
-        return "Success";
-    }
 
 }

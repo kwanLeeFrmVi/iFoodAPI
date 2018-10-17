@@ -13,3 +13,6 @@ spring:
     show-sql: true
     dialect: org.hibernate.dialect.SQLServer2012Dialect
     ddl-auto: create-drop
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl

@@ -6,6 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.UUID;
+
 @Service
 @Slf4j
 public class ManageAccount {
@@ -14,10 +17,20 @@ public class ManageAccount {
     private UserAccountRepository userAccountRepository;
 
     public String CreateUser(User user){
-//        userAccountRepository.save(user);
+        user.setId(UUID.randomUUID());
+        userAccountRepository.save(user);
         return "Success";
     }
+    public User getUserByEmail(String email){
+        try {
+            return userAccountRepository.findByEmail(email);
+        }catch (Exception e){
+            e.printStackTrace();
+            log.error(e.getMessage());
+            return null;
+        }
 
+    }
     public String checkLogin(){
         return "";
     }
