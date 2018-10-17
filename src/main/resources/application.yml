@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:sqlserver://localhost\MSI-GS60:1433;database=I_Food
+    username: sa
+    password: quan1996
+    platform: mssql
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    session:
+      store-type: jdbc
+      jdbc:
+        initialize-schema: always
+  jpa:
+    show-sql: true
+    dialect: org.hibernate.dialect.SQLServer2012Dialect
+    ddl-auto: create-drop
