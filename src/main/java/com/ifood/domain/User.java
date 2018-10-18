@@ -1,5 +1,6 @@
 package com.ifood.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,9 +41,13 @@ public class User {
     private boolean isDelete;
 
     @Id
-    @GenericGenerator(name = "generator", strategy = "guid", parameters = {})
-    @GeneratedValue(generator = "generator")
-    @Column(name = "Id", nullable = false, columnDefinition="uniqueidentifier")
+//    @GenericGenerator(name = "generator", strategy = "guid", parameters = {})
+//    @GenericGenerator(name = "uuid", strategy = "uuid2")
+//    @GeneratedValue(generator = "generator")
+//    @Column(name = "Id", nullable = false, columnDefinition="uniqueidentifier")
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Column(name = "Id", columnDefinition = "BINARY(16)")
     public UUID getId() {
         return id;
     }
@@ -133,6 +138,7 @@ public class User {
 
     @Basic
     @Column(name = "IsDelete", nullable = true)
+    @JsonIgnore
     public boolean getDelete() {
         return isDelete;
     }
