@@ -11,7 +11,6 @@ public class DietaryType {
     private int id;
     private String name;
     private String description;
-    private Boolean isActive;
     private Boolean isDelete;
 
     @Id
@@ -45,16 +44,6 @@ public class DietaryType {
     }
 
     @Basic
-    @Column(name = "IsActive", nullable = true)
-    public Boolean getActive() {
-        return isActive;
-    }
-
-    public void setActive(Boolean active) {
-        isActive = active;
-    }
-
-    @Basic
     @Column(name = "IsDelete", nullable = true)
     public Boolean getDelete() {
         return isDelete;
@@ -72,12 +61,11 @@ public class DietaryType {
         return id == that.id &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(description, that.description) &&
-                Objects.equals(isActive, that.isActive) &&
                 Objects.equals(isDelete, that.isDelete);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, isActive, isDelete);
+        return Objects.hash(id, name, description, isDelete);
     }
 }

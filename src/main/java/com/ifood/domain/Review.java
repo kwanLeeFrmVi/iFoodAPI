@@ -12,10 +12,10 @@ import java.util.UUID;
 public class Review {
     private int id;
     private UUID dishId;
+    private UUID userId;
     private String comment;
     private Double rate;
     private Timestamp reviewOn;
-    private UUID reviewBy;
     private Boolean isDelete;
 
     @Id
@@ -36,6 +36,16 @@ public class Review {
 
     public void setDishId(UUID dishId) {
         this.dishId = dishId;
+    }
+
+    @Basic
+    @Column(name = "UserId", nullable = true)
+    public UUID getUserId() {
+        return userId;
+    }
+
+    public void setUserId(UUID userId) {
+        this.userId = userId;
     }
 
     @Basic
@@ -69,16 +79,6 @@ public class Review {
     }
 
     @Basic
-    @Column(name = "ReviewBy", nullable = true)
-    public UUID getReviewBy() {
-        return reviewBy;
-    }
-
-    public void setReviewBy(UUID reviewBy) {
-        this.reviewBy = reviewBy;
-    }
-
-    @Basic
     @Column(name = "IsDelete", nullable = true)
     public Boolean getDelete() {
         return isDelete;
@@ -95,15 +95,15 @@ public class Review {
         Review review = (Review) o;
         return id == review.id &&
                 Objects.equals(dishId, review.dishId) &&
+                Objects.equals(userId, review.userId) &&
                 Objects.equals(comment, review.comment) &&
                 Objects.equals(rate, review.rate) &&
                 Objects.equals(reviewOn, review.reviewOn) &&
-                Objects.equals(reviewBy, review.reviewBy) &&
                 Objects.equals(isDelete, review.isDelete);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dishId, comment, rate, reviewOn, reviewBy, isDelete);
+        return Objects.hash(id, dishId, userId, comment, rate, reviewOn, isDelete);
     }
 }

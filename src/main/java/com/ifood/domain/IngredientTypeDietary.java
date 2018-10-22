@@ -1,7 +1,6 @@
 package com.ifood.domain;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
@@ -10,10 +9,6 @@ public class IngredientTypeDietary {
     private int id;
     private int ingredientTypeId;
     private int dietaryId;
-    private Boolean isActive;
-    private Boolean isDelete;
-    private Timestamp createOn;
-    private Timestamp modifiedOn;
     private String description;
 
     @Id
@@ -47,46 +42,6 @@ public class IngredientTypeDietary {
     }
 
     @Basic
-    @Column(name = "IsActive", nullable = true)
-    public Boolean getActive() {
-        return isActive;
-    }
-
-    public void setActive(Boolean active) {
-        isActive = active;
-    }
-
-    @Basic
-    @Column(name = "IsDelete", nullable = true)
-    public Boolean getDelete() {
-        return isDelete;
-    }
-
-    public void setDelete(Boolean delete) {
-        isDelete = delete;
-    }
-
-    @Basic
-    @Column(name = "CreateOn", nullable = true)
-    public Timestamp getCreateOn() {
-        return createOn;
-    }
-
-    public void setCreateOn(Timestamp createOn) {
-        this.createOn = createOn;
-    }
-
-    @Basic
-    @Column(name = "ModifiedOn", nullable = true)
-    public Timestamp getModifiedOn() {
-        return modifiedOn;
-    }
-
-    public void setModifiedOn(Timestamp modifiedOn) {
-        this.modifiedOn = modifiedOn;
-    }
-
-    @Basic
     @Column(name = "Description", nullable = true, length = 2147483647)
     public String getDescription() {
         return description;
@@ -104,15 +59,11 @@ public class IngredientTypeDietary {
         return id == that.id &&
                 ingredientTypeId == that.ingredientTypeId &&
                 dietaryId == that.dietaryId &&
-                Objects.equals(isActive, that.isActive) &&
-                Objects.equals(isDelete, that.isDelete) &&
-                Objects.equals(createOn, that.createOn) &&
-                Objects.equals(modifiedOn, that.modifiedOn) &&
                 Objects.equals(description, that.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, ingredientTypeId, dietaryId, isActive, isDelete, createOn, modifiedOn, description);
+        return Objects.hash(id, ingredientTypeId, dietaryId, description);
     }
 }

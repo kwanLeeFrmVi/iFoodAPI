@@ -4,9 +4,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.sql.Timestamp;
 import java.util.Objects;
-import java.util.UUID;
 
 @Entity
 public class DietaryPreferences {
@@ -14,12 +12,7 @@ public class DietaryPreferences {
     private String name;
     private String description;
     private Integer typeId;
-    private Boolean isActive;
     private Boolean isDelete;
-    private UUID createBy;
-    private Timestamp createOn;
-    private UUID modifiedBy;
-    private Timestamp modifiedOn;
 
     @Id
     @Column(name = "Id", nullable = false)
@@ -62,16 +55,6 @@ public class DietaryPreferences {
     }
 
     @Basic
-    @Column(name = "IsActive", nullable = true)
-    public Boolean getActive() {
-        return isActive;
-    }
-
-    public void setActive(Boolean active) {
-        isActive = active;
-    }
-
-    @Basic
     @Column(name = "IsDelete", nullable = true)
     public Boolean getDelete() {
         return isDelete;
@@ -79,46 +62,6 @@ public class DietaryPreferences {
 
     public void setDelete(Boolean delete) {
         isDelete = delete;
-    }
-
-    @Basic
-    @Column(name = "CreateBy", nullable = true)
-    public UUID getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(UUID createBy) {
-        this.createBy = createBy;
-    }
-
-    @Basic
-    @Column(name = "CreateOn", nullable = true)
-    public Timestamp getCreateOn() {
-        return createOn;
-    }
-
-    public void setCreateOn(Timestamp createOn) {
-        this.createOn = createOn;
-    }
-
-    @Basic
-    @Column(name = "ModifiedBy", nullable = true)
-    public UUID getModifiedBy() {
-        return modifiedBy;
-    }
-
-    public void setModifiedBy(UUID modifiedBy) {
-        this.modifiedBy = modifiedBy;
-    }
-
-    @Basic
-    @Column(name = "ModifiedOn", nullable = true)
-    public Timestamp getModifiedOn() {
-        return modifiedOn;
-    }
-
-    public void setModifiedOn(Timestamp modifiedOn) {
-        this.modifiedOn = modifiedOn;
     }
 
     @Override
@@ -130,16 +73,11 @@ public class DietaryPreferences {
                 Objects.equals(name, that.name) &&
                 Objects.equals(description, that.description) &&
                 Objects.equals(typeId, that.typeId) &&
-                Objects.equals(isActive, that.isActive) &&
-                Objects.equals(isDelete, that.isDelete) &&
-                Objects.equals(createBy, that.createBy) &&
-                Objects.equals(createOn, that.createOn) &&
-                Objects.equals(modifiedBy, that.modifiedBy) &&
-                Objects.equals(modifiedOn, that.modifiedOn);
+                Objects.equals(isDelete, that.isDelete);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, typeId, isActive, isDelete, createBy, createOn, modifiedBy, modifiedOn);
+        return Objects.hash(id, name, description, typeId, isDelete);
     }
 }

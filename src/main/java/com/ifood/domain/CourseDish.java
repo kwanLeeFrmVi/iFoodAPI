@@ -1,7 +1,5 @@
 package com.ifood.domain;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.util.Objects;
 import java.util.UUID;
@@ -13,13 +11,9 @@ public class CourseDish {
     private UUID courseId;
     private UUID dishId;
     private String description;
-    private Boolean isActive;
-    private Boolean isDelete;
 
     @Id
-    @GenericGenerator(name = "generator", strategy = "guid", parameters = {})
-    @GeneratedValue(generator = "generator")
-    @Column(name = "Id", nullable = false, columnDefinition="uniqueidentifier")
+    @Column(name = "Id", nullable = false)
     public int getId() {
         return id;
     }
@@ -58,26 +52,6 @@ public class CourseDish {
         this.description = description;
     }
 
-    @Basic
-    @Column(name = "IsActive", nullable = true)
-    public Boolean getActive() {
-        return isActive;
-    }
-
-    public void setActive(Boolean active) {
-        isActive = active;
-    }
-
-    @Basic
-    @Column(name = "IsDelete", nullable = true)
-    public Boolean getDelete() {
-        return isDelete;
-    }
-
-    public void setDelete(Boolean delete) {
-        isDelete = delete;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -86,13 +60,11 @@ public class CourseDish {
         return id == that.id &&
                 Objects.equals(courseId, that.courseId) &&
                 Objects.equals(dishId, that.dishId) &&
-                Objects.equals(description, that.description) &&
-                Objects.equals(isActive, that.isActive) &&
-                Objects.equals(isDelete, that.isDelete);
+                Objects.equals(description, that.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, courseId, dishId, description, isActive, isDelete);
+        return Objects.hash(id, courseId, dishId, description);
     }
 }

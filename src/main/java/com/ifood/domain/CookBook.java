@@ -15,7 +15,6 @@ public class CookBook {
     private UUID userId;
     private String description;
     private Timestamp createOn;
-    private Timestamp modifiedOn;
     private Boolean isDelete;
 
     @Id
@@ -69,16 +68,6 @@ public class CookBook {
     }
 
     @Basic
-    @Column(name = "ModifiedOn", nullable = true)
-    public Timestamp getModifiedOn() {
-        return modifiedOn;
-    }
-
-    public void setModifiedOn(Timestamp modifiedOn) {
-        this.modifiedOn = modifiedOn;
-    }
-
-    @Basic
     @Column(name = "IsDelete", nullable = true)
     public Boolean getDelete() {
         return isDelete;
@@ -98,12 +87,11 @@ public class CookBook {
                 Objects.equals(userId, cookBook.userId) &&
                 Objects.equals(description, cookBook.description) &&
                 Objects.equals(createOn, cookBook.createOn) &&
-                Objects.equals(modifiedOn, cookBook.modifiedOn) &&
                 Objects.equals(isDelete, cookBook.isDelete);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dishId, userId, description, createOn, modifiedOn, isDelete);
+        return Objects.hash(id, dishId, userId, description, createOn, isDelete);
     }
 }

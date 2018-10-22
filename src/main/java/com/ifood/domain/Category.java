@@ -1,8 +1,9 @@
 package com.ifood.domain;
 
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -15,9 +16,7 @@ public class Category {
     private Boolean isDelete;
 
     @Id
-    @GenericGenerator(name = "generator", strategy = "guid", parameters = {})
-    @GeneratedValue(generator = "generator")
-    @Column(name = "Id", nullable = false, columnDefinition="uniqueidentifier")
+    @Column(name = "Id", nullable = false)
     public UUID getId() {
         return id;
     }

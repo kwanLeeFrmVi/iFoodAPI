@@ -5,14 +5,12 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-@Table(name = "\"Category_Course\"", schema = "dbo", catalog = "I_Food")
-public class CategoryCourse {
+@Table(name = "Category_Dish", schema = "dbo", catalog = "I_Food")
+public class CategoryDish {
     private int id;
     private UUID categoryId;
-    private UUID courseId;
+    private UUID dishId;
     private String description;
-    private Boolean isActive;
-    private Boolean isDelete;
 
     @Id
     @Column(name = "Id", nullable = false)
@@ -35,13 +33,13 @@ public class CategoryCourse {
     }
 
     @Basic
-    @Column(name = "CourseId", nullable = false)
-    public UUID getCourseId() {
-        return courseId;
+    @Column(name = "DishId", nullable = false)
+    public UUID getDishId() {
+        return dishId;
     }
 
-    public void setCourseId(UUID courseId) {
-        this.courseId = courseId;
+    public void setDishId(UUID dishId) {
+        this.dishId = dishId;
     }
 
     @Basic
@@ -54,41 +52,19 @@ public class CategoryCourse {
         this.description = description;
     }
 
-    @Basic
-    @Column(name = "IsActive", nullable = true)
-    public Boolean getActive() {
-        return isActive;
-    }
-
-    public void setActive(Boolean active) {
-        isActive = active;
-    }
-
-    @Basic
-    @Column(name = "IsDelete", nullable = true)
-    public Boolean getDelete() {
-        return isDelete;
-    }
-
-    public void setDelete(Boolean delete) {
-        isDelete = delete;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CategoryCourse that = (CategoryCourse) o;
+        CategoryDish that = (CategoryDish) o;
         return id == that.id &&
                 Objects.equals(categoryId, that.categoryId) &&
-                Objects.equals(courseId, that.courseId) &&
-                Objects.equals(description, that.description) &&
-                Objects.equals(isActive, that.isActive) &&
-                Objects.equals(isDelete, that.isDelete);
+                Objects.equals(dishId, that.dishId) &&
+                Objects.equals(description, that.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, categoryId, courseId, description, isActive, isDelete);
+        return Objects.hash(id, categoryId, dishId, description);
     }
 }

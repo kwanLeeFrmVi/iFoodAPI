@@ -13,8 +13,6 @@ public class ShoppingList {
     private UUID userId;
     private UUID dishId;
     private UUID ingredientId;
-    private Boolean isActive;
-    private Boolean isDelete;
     private String description;
 
     @Id
@@ -58,26 +56,6 @@ public class ShoppingList {
     }
 
     @Basic
-    @Column(name = "IsActive", nullable = true)
-    public Boolean getActive() {
-        return isActive;
-    }
-
-    public void setActive(Boolean active) {
-        isActive = active;
-    }
-
-    @Basic
-    @Column(name = "IsDelete", nullable = true)
-    public Boolean getDelete() {
-        return isDelete;
-    }
-
-    public void setDelete(Boolean delete) {
-        isDelete = delete;
-    }
-
-    @Basic
     @Column(name = "Description", nullable = true, length = 2147483647)
     public String getDescription() {
         return description;
@@ -96,13 +74,11 @@ public class ShoppingList {
                 Objects.equals(userId, that.userId) &&
                 Objects.equals(dishId, that.dishId) &&
                 Objects.equals(ingredientId, that.ingredientId) &&
-                Objects.equals(isActive, that.isActive) &&
-                Objects.equals(isDelete, that.isDelete) &&
                 Objects.equals(description, that.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, dishId, ingredientId, isActive, isDelete, description);
+        return Objects.hash(id, userId, dishId, ingredientId, description);
     }
 }

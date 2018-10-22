@@ -11,7 +11,6 @@ public class Unit {
     private int id;
     private String name;
     private String description;
-    private Boolean isActive;
     private Boolean isDelete;
 
     @Id
@@ -45,16 +44,6 @@ public class Unit {
     }
 
     @Basic
-    @Column(name = "IsActive", nullable = true)
-    public Boolean getActive() {
-        return isActive;
-    }
-
-    public void setActive(Boolean active) {
-        isActive = active;
-    }
-
-    @Basic
     @Column(name = "IsDelete", nullable = true)
     public Boolean getDelete() {
         return isDelete;
@@ -72,12 +61,11 @@ public class Unit {
         return id == unit.id &&
                 Objects.equals(name, unit.name) &&
                 Objects.equals(description, unit.description) &&
-                Objects.equals(isActive, unit.isActive) &&
                 Objects.equals(isDelete, unit.isDelete);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, isActive, isDelete);
+        return Objects.hash(id, name, description, isDelete);
     }
 }

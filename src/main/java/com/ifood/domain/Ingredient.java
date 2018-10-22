@@ -1,30 +1,40 @@
 package com.ifood.domain;
 
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Objects;
 import java.util.UUID;
 
 @Entity
 public class Ingredient {
     private UUID id;
+    private Integer typeId;
     private String name;
     private String description;
-    private Boolean isActive;
+    private String unitId;
+    private Double pricePerUnit;
     private Boolean isDelete;
-    private Integer typeId;
 
     @Id
-    @GenericGenerator(name = "generator", strategy = "guid", parameters = {})
-    @GeneratedValue(generator = "generator")
-    @Column(name = "Id", nullable = false, columnDefinition="uniqueidentifier")
+    @Column(name = "Id", nullable = false)
     public UUID getId() {
         return id;
     }
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    @Basic
+    @Column(name = "TypeId", nullable = true)
+    public Integer getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(Integer typeId) {
+        this.typeId = typeId;
     }
 
     @Basic
@@ -48,13 +58,23 @@ public class Ingredient {
     }
 
     @Basic
-    @Column(name = "IsActive", nullable = true)
-    public Boolean getActive() {
-        return isActive;
+    @Column(name = "UnitId", nullable = true, length = 10)
+    public String getUnitId() {
+        return unitId;
     }
 
-    public void setActive(Boolean active) {
-        isActive = active;
+    public void setUnitId(String unitId) {
+        this.unitId = unitId;
+    }
+
+    @Basic
+    @Column(name = "PricePerUnit", nullable = true, precision = 0)
+    public Double getPricePerUnit() {
+        return pricePerUnit;
+    }
+
+    public void setPricePerUnit(Double pricePerUnit) {
+        this.pricePerUnit = pricePerUnit;
     }
 
     @Basic
@@ -67,31 +87,22 @@ public class Ingredient {
         isDelete = delete;
     }
 
-    @Basic
-    @Column(name = "TypeId", nullable = true)
-    public Integer getTypeId() {
-        return typeId;
-    }
-
-    public void setTypeId(Integer typeId) {
-        this.typeId = typeId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Ingredient that = (Ingredient) o;
         return Objects.equals(id, that.id) &&
+                Objects.equals(typeId, that.typeId) &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(description, that.description) &&
-                Objects.equals(isActive, that.isActive) &&
-                Objects.equals(isDelete, that.isDelete) &&
-                Objects.equals(typeId, that.typeId);
+                Objects.equals(unitId, that.unitId) &&
+                Objects.equals(pricePerUnit, that.pricePerUnit) &&
+                Objects.equals(isDelete, that.isDelete);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, isActive, isDelete, typeId);
+        return Objects.hash(id, typeId, name, description, unitId, pricePerUnit, isDelete);
     }
 }

@@ -4,7 +4,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
@@ -12,10 +11,7 @@ public class IngredientType {
     private int id;
     private String name;
     private String description;
-    private Boolean isActive;
     private Boolean isDelete;
-    private Timestamp createOn;
-    private Timestamp modifiedOn;
 
     @Id
     @Column(name = "Id", nullable = false)
@@ -48,16 +44,6 @@ public class IngredientType {
     }
 
     @Basic
-    @Column(name = "IsActive", nullable = true)
-    public Boolean getActive() {
-        return isActive;
-    }
-
-    public void setActive(Boolean active) {
-        isActive = active;
-    }
-
-    @Basic
     @Column(name = "IsDelete", nullable = true)
     public Boolean getDelete() {
         return isDelete;
@@ -65,26 +51,6 @@ public class IngredientType {
 
     public void setDelete(Boolean delete) {
         isDelete = delete;
-    }
-
-    @Basic
-    @Column(name = "CreateOn", nullable = true)
-    public Timestamp getCreateOn() {
-        return createOn;
-    }
-
-    public void setCreateOn(Timestamp createOn) {
-        this.createOn = createOn;
-    }
-
-    @Basic
-    @Column(name = "ModifiedOn", nullable = true)
-    public Timestamp getModifiedOn() {
-        return modifiedOn;
-    }
-
-    public void setModifiedOn(Timestamp modifiedOn) {
-        this.modifiedOn = modifiedOn;
     }
 
     @Override
@@ -95,14 +61,11 @@ public class IngredientType {
         return id == that.id &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(description, that.description) &&
-                Objects.equals(isActive, that.isActive) &&
-                Objects.equals(isDelete, that.isDelete) &&
-                Objects.equals(createOn, that.createOn) &&
-                Objects.equals(modifiedOn, that.modifiedOn);
+                Objects.equals(isDelete, that.isDelete);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, isActive, isDelete, createOn, modifiedOn);
+        return Objects.hash(id, name, description, isDelete);
     }
 }
