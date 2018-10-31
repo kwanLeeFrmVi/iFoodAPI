@@ -5,11 +5,11 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.UUID;
+
 @Repository
-public interface UserAccountRepository extends CrudRepository<UserEntity, UUID> {
+public interface UserAccountRepository extends CrudRepository<UserEntity, String> {
     UserEntity findByEmail(String email);
-    List<UserEntity> findByIdAndAddress(UUID id, String address);
+    List<UserEntity> findByIdAndAddress(String id, String address);
 
 
 }

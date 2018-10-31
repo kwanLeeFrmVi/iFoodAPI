@@ -2,14 +2,14 @@ package com.ifood.domain;
 
 import javax.persistence.*;
 import java.util.Objects;
-import java.util.UUID;
+
 
 @Entity
 @Table(name = "Category_Dish", schema = "dbo", catalog = "I_Food")
 public class CategoryDishEntity {
     private int id;
-    private UUID categoryId;
-    private UUID dishId;
+    private String categoryId;
+    private String dishId;
     private String description;
 
     @Id
@@ -24,21 +24,21 @@ public class CategoryDishEntity {
 
     @Basic
     @Column(name = "CategoryId")
-    public UUID getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(UUID categoryId) {
+    public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
 
     @Basic
     @Column(name = "DishId")
-    public UUID getDishId() {
+    public String getDishId() {
         return dishId;
     }
 
-    public void setDishId(UUID dishId) {
+    public void setDishId(String dishId) {
         this.dishId = dishId;
     }
 

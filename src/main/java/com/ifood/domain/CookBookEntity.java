@@ -6,7 +6,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
-import java.util.UUID;
+
 
 @Entity
 @Table(name = "CookBook", schema = "dbo", catalog = "I_Food")
@@ -16,7 +16,7 @@ public class CookBookEntity {
     @JsonProperty("name")
     private String name;
     @JsonProperty("userId")
-    private UUID userId;
+    private String userId;
     @JsonProperty("description")
     private String description;
     @JsonProperty("createOn")
@@ -25,8 +25,8 @@ public class CookBookEntity {
     private Boolean isDelete;
 
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @GeneratedValue(generator = "cookbook-uuid")
+    @GenericGenerator(name = "cookbook-uuid", strategy = "uuid")
     @Column(name = "Id")
     public int getId() {
         return id;
@@ -48,11 +48,11 @@ public class CookBookEntity {
 
     @Basic
     @Column(name = "UserId")
-    public UUID getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(UUID userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

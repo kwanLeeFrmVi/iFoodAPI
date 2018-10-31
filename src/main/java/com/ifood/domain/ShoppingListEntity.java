@@ -2,16 +2,16 @@ package com.ifood.domain;
 
 import javax.persistence.*;
 import java.util.Objects;
-import java.util.UUID;
+
 
 @Entity
 @Table(name = "ShoppingList", schema = "dbo", catalog = "I_Food")
 public class ShoppingListEntity {
     private int id;
-    private UUID userId;
+    private String userId;
     private int transactionId;
-    private UUID dishId;
-    private UUID ingredientId;
+    private String dishId;
+    private String ingredientId;
     private String description;
     private Integer status;
 
@@ -27,11 +27,11 @@ public class ShoppingListEntity {
 
     @Basic
     @Column(name = "UserId")
-    public UUID getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(UUID userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -47,21 +47,21 @@ public class ShoppingListEntity {
 
     @Basic
     @Column(name = "DishId")
-    public UUID getDishId() {
+    public String getDishId() {
         return dishId;
     }
 
-    public void setDishId(UUID dishId) {
+    public void setDishId(String dishId) {
         this.dishId = dishId;
     }
 
     @Basic
     @Column(name = "IngredientId")
-    public UUID getIngredientId() {
+    public String getIngredientId() {
         return ingredientId;
     }
 
-    public void setIngredientId(UUID ingredientId) {
+    public void setIngredientId(String ingredientId) {
         this.ingredientId = ingredientId;
     }
 

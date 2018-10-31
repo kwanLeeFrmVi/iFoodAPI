@@ -4,10 +4,10 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
 import java.util.Optional;
-import java.util.UUID;
+
 
 @NoRepositoryBean
-public interface GenericRepository<T> extends CrudRepository<T, UUID> {
+public interface GenericRepository<T> extends CrudRepository<T, String> {
 
-    Optional<T> findById(UUID id);
+    Optional<T> findById(String id);
 }

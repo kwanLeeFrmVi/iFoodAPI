@@ -8,17 +8,16 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Objects;
-import java.util.UUID;
 
 @Builder
 @NoArgsConstructor
 //@Data
 @AllArgsConstructor
 @Entity
-@Table(name = "User", schema = "dbo", catalog = "I_Food")
+@Table(name = "\"User\"", schema = "dbo", catalog = "I_Food")
 public class UserEntity {
     @JsonProperty("id")
-    private UUID id;
+    private String  id;
     @JsonProperty("name")
     private String name;
     @JsonProperty("description")
@@ -35,20 +34,22 @@ public class UserEntity {
     private String district;
     @JsonProperty("street")
     private String street;
-    @JsonProperty("isDelete")
-    private boolean isDelete;
     @JsonProperty("address")
     private String address;
+    @JsonProperty("isDelete")
+    private boolean isDelete;
 
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @GeneratedValue(generator = "user-uuid")
+    @GenericGenerator(name = "user-uuid", strategy = "uuid2")
     @Column(name = "Id")
-    public UUID getId() {
+    public String getId() {
+
+        System.out.println(id);
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -17,20 +17,20 @@ public class ManageAccountService {
     @Autowired(required = true)
     private UserAccountRepository userAccountRepository;
 
-    public ResponseEntity<Object> CreateUser(UserEntity user) {
+    public ResponseEntity<Object> createUser(UserEntity user) {
         HttpHeaders responseHeaders = new HttpHeaders();
         try {
             if (!checkExistEmail(user.getEmail())) {
                 String loginPass = EncryptionDecryption.encrypt(user.getPassword());
                 user.setPassword(loginPass);
-                userAccountRepository.save(user);
+                user = userAccountRepository.save(user);
                 responseHeaders.set(SUCCESS, "user create success");
             } else {
                 responseHeaders.set(ERROR, "email already exists");
             }
         } catch (Exception e) {
             myLoger(e);
-            responseHeaders.set(ERROR, "email already exists");
+            responseHeaders.set(ERROR, "Create error");
         } finally {
             return ResponseEntity.ok()
                     .headers(responseHeaders)

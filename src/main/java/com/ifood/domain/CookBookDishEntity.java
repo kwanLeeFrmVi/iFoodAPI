@@ -2,13 +2,13 @@ package com.ifood.domain;
 
 import javax.persistence.*;
 import java.util.Objects;
-import java.util.UUID;
+
 
 @Entity
 @Table(name = "CookBook_Dish", schema = "dbo", catalog = "I_Food")
 public class CookBookDishEntity {
     private int id;
-    private UUID dishId;
+    private String dishId;
     private int cookbookId;
 
     @Id
@@ -23,11 +23,11 @@ public class CookBookDishEntity {
 
     @Basic
     @Column(name = "DishId")
-    public UUID getDishId() {
+    public String getDishId() {
         return dishId;
     }
 
-    public void setDishId(UUID dishId) {
+    public void setDishId(String dishId) {
         this.dishId = dishId;
     }
 

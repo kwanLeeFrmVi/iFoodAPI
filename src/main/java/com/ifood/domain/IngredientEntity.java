@@ -2,12 +2,12 @@ package com.ifood.domain;
 
 import javax.persistence.*;
 import java.util.Objects;
-import java.util.UUID;
+
 
 @Entity
 @Table(name = "Ingredient", schema = "dbo", catalog = "I_Food")
 public class IngredientEntity {
-    private UUID id;
+    private String id;
     private Integer typeId;
     private String name;
     private String description;
@@ -17,11 +17,11 @@ public class IngredientEntity {
 
     @Id
     @Column(name = "Id")
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 

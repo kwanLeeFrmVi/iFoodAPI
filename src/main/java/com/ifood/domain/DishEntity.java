@@ -3,13 +3,13 @@ package com.ifood.domain;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
-import java.util.UUID;
+
 
 @Entity
 @Table(name = "Dish", schema = "dbo", catalog = "I_Food")
 public class DishEntity {
-    private UUID id;
-    private UUID authorId;
+    private String id;
+    private String authorId;
     private String name;
     private String description;
     private Timestamp createOn;
@@ -19,21 +19,21 @@ public class DishEntity {
 
     @Id
     @Column(name = "Id")
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 
     @Basic
     @Column(name = "AuthorId")
-    public UUID getAuthorId() {
+    public String getAuthorId() {
         return authorId;
     }
 
-    public void setAuthorId(UUID authorId) {
+    public void setAuthorId(String authorId) {
         this.authorId = authorId;
     }
 

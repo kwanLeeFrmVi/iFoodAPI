@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:sqlserver://localhost/MSI-GS60:1433;database=I_Food
-    username: sa
-    password: quan1996
+    url: jdbc:sqlserver://ifood1.database.windows.net:1433;database=I_Food
+    username: ifood1
+    password: Qwer1234
     platform: mssql
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
     session:

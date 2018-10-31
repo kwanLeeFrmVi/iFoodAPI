@@ -3,14 +3,14 @@ package com.ifood.domain;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
-import java.util.UUID;
+
 
 @Entity
 @Table(name = "Review", schema = "dbo", catalog = "I_Food")
 public class ReviewEntity {
     private int id;
-    private UUID dishId;
-    private UUID userId;
+    private String dishId;
+    private String userId;
     private String comment;
     private Double rate;
     private Timestamp reviewOn;
@@ -28,21 +28,21 @@ public class ReviewEntity {
 
     @Basic
     @Column(name = "DishId")
-    public UUID getDishId() {
+    public String getDishId() {
         return dishId;
     }
 
-    public void setDishId(UUID dishId) {
+    public void setDishId(String dishId) {
         this.dishId = dishId;
     }
 
     @Basic
     @Column(name = "UserId")
-    public UUID getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(UUID userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

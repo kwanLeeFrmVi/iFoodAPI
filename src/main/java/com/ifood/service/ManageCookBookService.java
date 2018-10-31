@@ -9,6 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 import static com.ifood.config.Constants.*;
 
 @Service
@@ -17,20 +21,50 @@ public class ManageCookBookService {
     @Autowired(required = true)
     private CookBookRepository cookBookRepository;
 
-    public ResponseEntity<Object> CreateCookBook(CookBookEntity cookBook){
+    public ResponseEntity<Object> createCookBook(CookBookEntity cookBook){
         HttpHeaders responseHeaders = new HttpHeaders();
         try {
             if( !checkIsExist(cookBook) &&
                 cookBook.getName()!=null){
-                cookBookRepository.save(cookBook);
+                cookBook = cookBookRepository.save(cookBook);
+                responseHeaders.set(SUCCESS, "cookbook create success");
+            }else {
+                responseHeaders.set(ERROR, "cookbook already exists or invalid");
             }
         }catch (Exception e){
             log.error(e.getMessage());
+            responseHeaders.set(ERROR, "Create error");
+        }finally {
+            return ResponseEntity.ok()
+                    .headers(responseHeaders)
+                    .body(cookBook);
         }
-        return null;
+    }
+
+    public ResponseEntity<Object> getCookbook(String id){
+        HttpHeaders responseHeaders = new HttpHeaders();
+        String String = id;
+        List<CookBookEntity> value = new ArrayList<>();
+        try {
+           cookBookRepository.findById(String).ifPresent(value::add);
+           if(value.isEmpty()){
+               responseHeaders.set(ERROR, "cookbook id not exists ");
+           }else {
+               responseHeaders.set(SUCCESS, "cookbook get success ");
+           }
+        }catch (Exception e){
+            log.error(e.getMessage());
+            responseHeaders.set(ERROR, "get error");
+        }finally {
+
+            return ResponseEntity.ok()
+                    .headers(responseHeaders)
+                    .body(value);
+        }
     }
 
     private boolean checkIsExist(CookBookEntity cookBook){
         return  cookBookRepository.findByUserIdAndName(cookBook.getUserId(),cookBook.getName()) != null;
     }
+
 }

@@ -22,9 +22,9 @@ public class AccountController {
         return "Success";
     }
 
-    @PutMapping("/create")
+    @PutMapping("")
     public ResponseEntity<Object> createAccount(@RequestBody UserEntity newUser){
-        return manageAccountService.CreateUser(newUser);
+        return manageAccountService.createUser(newUser);
     }
 
 //    @GetMapping("/getbyemail")
@@ -36,12 +36,12 @@ public class AccountController {
     public ResponseEntity<Object> checkLogin(@RequestBody UserEntity newUser){
         return manageAccountService.checkLogin(newUser);
     }
-    @PostMapping("/update")
+    @PostMapping("")
     public ResponseEntity<Object> updateUser(@RequestBody UserEntity newUser){
         return manageAccountService.updateUser(newUser);
     }
 
-    @DeleteMapping("/remove")
+    @DeleteMapping("")
     public String removeUser(@RequestParam("email") String email, HttpServletResponse response){
         String result = FAIL;
         if(manageAccountService.setRemove(email)){
