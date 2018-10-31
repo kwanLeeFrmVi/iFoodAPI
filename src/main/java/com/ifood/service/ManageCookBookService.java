@@ -8,8 +8,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import static com.ifood.config.Constants.ERROR;
-import static com.ifood.config.Constants.SUCCESS;
+
+import static com.ifood.config.Constants.*;
 
 @Service
 @Slf4j
