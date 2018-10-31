@@ -1,5 +1,8 @@
 package com.ifood.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -8,13 +11,22 @@ import java.util.UUID;
 @Entity
 @Table(name = "CookBook", schema = "dbo", catalog = "I_Food")
 public class CookBookEntity {
+    @JsonProperty("id")
     private int id;
+    @JsonProperty("name")
+    private String name;
+    @JsonProperty("userId")
     private UUID userId;
+    @JsonProperty("description")
     private String description;
+    @JsonProperty("createOn")
     private Timestamp createOn;
+    @JsonProperty("isDelete")
     private Boolean isDelete;
 
     @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "Id")
     public int getId() {
         return id;
@@ -22,6 +34,16 @@ public class CookBookEntity {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Basic
+    @Column(name = "Name")
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Basic
@@ -70,6 +92,7 @@ public class CookBookEntity {
         if (o == null || getClass() != o.getClass()) return false;
         CookBookEntity that = (CookBookEntity) o;
         return id == that.id &&
+                Objects.equals(name, that.name) &&
                 Objects.equals(userId, that.userId) &&
                 Objects.equals(description, that.description) &&
                 Objects.equals(createOn, that.createOn) &&
@@ -78,6 +101,6 @@ public class CookBookEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, description, createOn, isDelete);
+        return Objects.hash(id, name, userId, description, createOn, isDelete);
     }
 }
