@@ -2,6 +2,7 @@ package com.ifood.domain;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -16,6 +17,17 @@ public class DishEntity {
     private Double rate;
     private Boolean isActive;
     private Boolean isDelete;
+
+    @Transient
+    private List<IngredientEntity> ingredients;
+
+    public List<IngredientEntity> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<IngredientEntity> ingredients) {
+        this.ingredients = ingredients;
+    }
 
     @Id
     @Column(name = "Id")

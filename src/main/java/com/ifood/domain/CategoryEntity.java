@@ -1,5 +1,8 @@
 package com.ifood.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.util.Objects;
 import java.util.UUID;
@@ -7,10 +10,15 @@ import java.util.UUID;
 @Entity
 @Table(name = "Category", schema = "dbo", catalog = "I_Food")
 public class CategoryEntity {
+    @JsonProperty("id")
     private UUID id;
+    @JsonProperty("name")
     private String name;
+    @JsonProperty("description")
     private String description;
+    @JsonProperty("isActive")
     private Boolean isActive;
+    @JsonIgnore
     private Boolean isDelete;
 
     @Id
