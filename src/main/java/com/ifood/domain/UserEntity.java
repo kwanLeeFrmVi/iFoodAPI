@@ -44,8 +44,6 @@ public class UserEntity {
     @GenericGenerator(name = "user-uuid", strategy = "uuid2")
     @Column(name = "Id")
     public String getId() {
-
-        System.out.println(id);
         return id;
     }
 

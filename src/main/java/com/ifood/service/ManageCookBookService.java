@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class ManageCookBookService {
         try {
             if( !checkIsExist(cookBook) &&
                 cookBook.getName()!=null){
+                cookBook.setCreateOn(new Timestamp(System.currentTimeMillis()));
                 cookBook = cookBookRepository.save(cookBook);
                 responseHeaders.set(SUCCESS, "cookbook create success");
             }else {

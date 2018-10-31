@@ -9,7 +9,7 @@ import java.util.Objects;
 
 
 @Entity
-@Table(name = "CookBook", schema = "dbo", catalog = "I_Food")
+@Table(name = "\"CookBook\"", schema = "dbo", catalog = "I_Food")
 public class CookBookEntity {
     @JsonProperty("id")
     private int id;
@@ -25,7 +25,7 @@ public class CookBookEntity {
     private Boolean isDelete;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     public int getId() {
         return id;
