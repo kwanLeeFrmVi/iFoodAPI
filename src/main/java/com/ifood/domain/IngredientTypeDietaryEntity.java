@@ -5,14 +5,14 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "IngredientType_Dietary", schema = "dbo", catalog = "I_Food")
-public class IngredientTypeDietary {
+public class IngredientTypeDietaryEntity {
     private int id;
     private int ingredientTypeId;
     private int dietaryId;
     private String description;
 
     @Id
-    @Column(name = "Id", nullable = false)
+    @Column(name = "Id")
     public int getId() {
         return id;
     }
@@ -22,7 +22,7 @@ public class IngredientTypeDietary {
     }
 
     @Basic
-    @Column(name = "IngredientTypeId", nullable = false)
+    @Column(name = "IngredientTypeId")
     public int getIngredientTypeId() {
         return ingredientTypeId;
     }
@@ -32,7 +32,7 @@ public class IngredientTypeDietary {
     }
 
     @Basic
-    @Column(name = "DietaryId", nullable = false)
+    @Column(name = "DietaryId")
     public int getDietaryId() {
         return dietaryId;
     }
@@ -42,7 +42,7 @@ public class IngredientTypeDietary {
     }
 
     @Basic
-    @Column(name = "Description", nullable = true, length = 2147483647)
+    @Column(name = "Description")
     public String getDescription() {
         return description;
     }
@@ -55,7 +55,7 @@ public class IngredientTypeDietary {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        IngredientTypeDietary that = (IngredientTypeDietary) o;
+        IngredientTypeDietaryEntity that = (IngredientTypeDietaryEntity) o;
         return id == that.id &&
                 ingredientTypeId == that.ingredientTypeId &&
                 dietaryId == that.dietaryId &&

@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:sqlserver://localhost\MSI-GS60:1433;database=I_Food
+    url: jdbc:sqlserver://localhost/MSI-GS60:1433;database=I_Food
     username: sa
     password: quan1996
     platform: mssql

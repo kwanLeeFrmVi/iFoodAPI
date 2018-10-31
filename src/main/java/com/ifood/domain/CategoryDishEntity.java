@@ -6,14 +6,14 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "Category_Dish", schema = "dbo", catalog = "I_Food")
-public class CategoryDish {
+public class CategoryDishEntity {
     private int id;
     private UUID categoryId;
     private UUID dishId;
     private String description;
 
     @Id
-    @Column(name = "Id", nullable = false)
+    @Column(name = "Id")
     public int getId() {
         return id;
     }
@@ -23,7 +23,7 @@ public class CategoryDish {
     }
 
     @Basic
-    @Column(name = "CategoryId", nullable = false)
+    @Column(name = "CategoryId")
     public UUID getCategoryId() {
         return categoryId;
     }
@@ -33,7 +33,7 @@ public class CategoryDish {
     }
 
     @Basic
-    @Column(name = "DishId", nullable = false)
+    @Column(name = "DishId")
     public UUID getDishId() {
         return dishId;
     }
@@ -43,7 +43,7 @@ public class CategoryDish {
     }
 
     @Basic
-    @Column(name = "Description", nullable = true, length = 2147483647)
+    @Column(name = "Description")
     public String getDescription() {
         return description;
     }
@@ -56,7 +56,7 @@ public class CategoryDish {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CategoryDish that = (CategoryDish) o;
+        CategoryDishEntity that = (CategoryDishEntity) o;
         return id == that.id &&
                 Objects.equals(categoryId, that.categoryId) &&
                 Objects.equals(dishId, that.dishId) &&

@@ -1,18 +1,15 @@
 package com.ifood.domain;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-public class Transaction {
+@Table(name = "Transaction", schema = "dbo", catalog = "I_Food")
+public class TransactionEntity {
     private int id;
     private UUID userId;
-    private int shoppingListId;
     private String city;
     private String district;
     private String address;
@@ -23,7 +20,7 @@ public class Transaction {
     private Timestamp createdOn;
 
     @Id
-    @Column(name = "Id", nullable = false)
+    @Column(name = "Id")
     public int getId() {
         return id;
     }
@@ -33,7 +30,7 @@ public class Transaction {
     }
 
     @Basic
-    @Column(name = "UserId", nullable = false)
+    @Column(name = "UserId")
     public UUID getUserId() {
         return userId;
     }
@@ -43,17 +40,7 @@ public class Transaction {
     }
 
     @Basic
-    @Column(name = "ShoppingListId", nullable = false)
-    public int getShoppingListId() {
-        return shoppingListId;
-    }
-
-    public void setShoppingListId(int shoppingListId) {
-        this.shoppingListId = shoppingListId;
-    }
-
-    @Basic
-    @Column(name = "City", nullable = true, length = 50)
+    @Column(name = "City")
     public String getCity() {
         return city;
     }
@@ -63,7 +50,7 @@ public class Transaction {
     }
 
     @Basic
-    @Column(name = "District", nullable = true, length = 50)
+    @Column(name = "District")
     public String getDistrict() {
         return district;
     }
@@ -73,7 +60,7 @@ public class Transaction {
     }
 
     @Basic
-    @Column(name = "Address", nullable = true, length = 50)
+    @Column(name = "Address")
     public String getAddress() {
         return address;
     }
@@ -83,7 +70,7 @@ public class Transaction {
     }
 
     @Basic
-    @Column(name = "Status", nullable = true)
+    @Column(name = "Status")
     public Integer getStatus() {
         return status;
     }
@@ -93,7 +80,7 @@ public class Transaction {
     }
 
     @Basic
-    @Column(name = "Description", nullable = true, length = 2147483647)
+    @Column(name = "Description")
     public String getDescription() {
         return description;
     }
@@ -103,7 +90,7 @@ public class Transaction {
     }
 
     @Basic
-    @Column(name = "TotalPrice", nullable = true, precision = 0)
+    @Column(name = "TotalPrice")
     public Double getTotalPrice() {
         return totalPrice;
     }
@@ -113,7 +100,7 @@ public class Transaction {
     }
 
     @Basic
-    @Column(name = "Discount", nullable = true, precision = 0)
+    @Column(name = "Discount")
     public Double getDiscount() {
         return discount;
     }
@@ -123,7 +110,7 @@ public class Transaction {
     }
 
     @Basic
-    @Column(name = "CreatedOn", nullable = true)
+    @Column(name = "CreatedOn")
     public Timestamp getCreatedOn() {
         return createdOn;
     }
@@ -136,9 +123,8 @@ public class Transaction {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Transaction that = (Transaction) o;
+        TransactionEntity that = (TransactionEntity) o;
         return id == that.id &&
-                shoppingListId == that.shoppingListId &&
                 Objects.equals(userId, that.userId) &&
                 Objects.equals(city, that.city) &&
                 Objects.equals(district, that.district) &&
@@ -152,6 +138,6 @@ public class Transaction {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, shoppingListId, city, district, address, status, description, totalPrice, discount, createdOn);
+        return Objects.hash(id, userId, city, district, address, status, description, totalPrice, discount, createdOn);
     }
 }

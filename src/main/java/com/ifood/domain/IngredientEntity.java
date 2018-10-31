@@ -1,14 +1,12 @@
 package com.ifood.domain;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-public class Ingredient {
+@Table(name = "Ingredient", schema = "dbo", catalog = "I_Food")
+public class IngredientEntity {
     private UUID id;
     private Integer typeId;
     private String name;
@@ -18,7 +16,7 @@ public class Ingredient {
     private Boolean isDelete;
 
     @Id
-    @Column(name = "Id", nullable = false)
+    @Column(name = "Id")
     public UUID getId() {
         return id;
     }
@@ -28,7 +26,7 @@ public class Ingredient {
     }
 
     @Basic
-    @Column(name = "TypeId", nullable = true)
+    @Column(name = "TypeId")
     public Integer getTypeId() {
         return typeId;
     }
@@ -38,7 +36,7 @@ public class Ingredient {
     }
 
     @Basic
-    @Column(name = "Name", nullable = false, length = 50)
+    @Column(name = "Name")
     public String getName() {
         return name;
     }
@@ -48,7 +46,7 @@ public class Ingredient {
     }
 
     @Basic
-    @Column(name = "Description", nullable = true, length = 2147483647)
+    @Column(name = "Description")
     public String getDescription() {
         return description;
     }
@@ -58,7 +56,7 @@ public class Ingredient {
     }
 
     @Basic
-    @Column(name = "UnitId", nullable = true, length = 10)
+    @Column(name = "UnitId")
     public String getUnitId() {
         return unitId;
     }
@@ -68,7 +66,7 @@ public class Ingredient {
     }
 
     @Basic
-    @Column(name = "PricePerUnit", nullable = true, precision = 0)
+    @Column(name = "PricePerUnit")
     public Double getPricePerUnit() {
         return pricePerUnit;
     }
@@ -78,7 +76,7 @@ public class Ingredient {
     }
 
     @Basic
-    @Column(name = "IsDelete", nullable = true)
+    @Column(name = "IsDelete")
     public Boolean getDelete() {
         return isDelete;
     }
@@ -91,7 +89,7 @@ public class Ingredient {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Ingredient that = (Ingredient) o;
+        IngredientEntity that = (IngredientEntity) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(typeId, that.typeId) &&
                 Objects.equals(name, that.name) &&

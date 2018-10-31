@@ -1,15 +1,13 @@
 package com.ifood.domain;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-public class Dish {
+@Table(name = "Dish", schema = "dbo", catalog = "I_Food")
+public class DishEntity {
     private UUID id;
     private UUID authorId;
     private String name;
@@ -20,7 +18,7 @@ public class Dish {
     private Boolean isDelete;
 
     @Id
-    @Column(name = "Id", nullable = false)
+    @Column(name = "Id")
     public UUID getId() {
         return id;
     }
@@ -30,7 +28,7 @@ public class Dish {
     }
 
     @Basic
-    @Column(name = "AuthorId", nullable = false)
+    @Column(name = "AuthorId")
     public UUID getAuthorId() {
         return authorId;
     }
@@ -40,7 +38,7 @@ public class Dish {
     }
 
     @Basic
-    @Column(name = "Name", nullable = false, length = 50)
+    @Column(name = "Name")
     public String getName() {
         return name;
     }
@@ -50,7 +48,7 @@ public class Dish {
     }
 
     @Basic
-    @Column(name = "Description", nullable = true, length = 2147483647)
+    @Column(name = "Description")
     public String getDescription() {
         return description;
     }
@@ -60,7 +58,7 @@ public class Dish {
     }
 
     @Basic
-    @Column(name = "CreateOn", nullable = true)
+    @Column(name = "CreateOn")
     public Timestamp getCreateOn() {
         return createOn;
     }
@@ -70,7 +68,7 @@ public class Dish {
     }
 
     @Basic
-    @Column(name = "Rate", nullable = true, precision = 0)
+    @Column(name = "Rate")
     public Double getRate() {
         return rate;
     }
@@ -80,7 +78,7 @@ public class Dish {
     }
 
     @Basic
-    @Column(name = "IsActive", nullable = true)
+    @Column(name = "IsActive")
     public Boolean getActive() {
         return isActive;
     }
@@ -90,7 +88,7 @@ public class Dish {
     }
 
     @Basic
-    @Column(name = "IsDelete", nullable = true)
+    @Column(name = "IsDelete")
     public Boolean getDelete() {
         return isDelete;
     }
@@ -103,15 +101,15 @@ public class Dish {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Dish dish = (Dish) o;
-        return Objects.equals(id, dish.id) &&
-                Objects.equals(authorId, dish.authorId) &&
-                Objects.equals(name, dish.name) &&
-                Objects.equals(description, dish.description) &&
-                Objects.equals(createOn, dish.createOn) &&
-                Objects.equals(rate, dish.rate) &&
-                Objects.equals(isActive, dish.isActive) &&
-                Objects.equals(isDelete, dish.isDelete);
+        DishEntity that = (DishEntity) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(authorId, that.authorId) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(createOn, that.createOn) &&
+                Objects.equals(rate, that.rate) &&
+                Objects.equals(isActive, that.isActive) &&
+                Objects.equals(isDelete, that.isDelete);
     }
 
     @Override

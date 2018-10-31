@@ -1,6 +1,6 @@
 package com.ifood.service;
 
-import com.ifood.domain.User;
+import com.ifood.domain.UserEntity;
 import com.ifood.repository.UserAccountRepository;
 import com.ifood.util.EncryptionDecryption;
 import lombok.extern.slf4j.Slf4j;
@@ -9,18 +9,15 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
-import java.util.UUID;
-
 import static com.ifood.config.Constants.*;
 
 @Service
 @Slf4j
-public class ManageAccount {
+public class ManageAccountService {
     @Autowired(required = true)
     private UserAccountRepository userAccountRepository;
 
-    public ResponseEntity<Object> CreateUser(User user) {
+    public ResponseEntity<Object> CreateUser(UserEntity user) {
         HttpHeaders responseHeaders = new HttpHeaders();
         try {
             if (!checkExistEmail(user.getEmail())) {
@@ -41,9 +38,9 @@ public class ManageAccount {
         }
     }
 
-    public ResponseEntity<Object> checkLogin(User user) {
+    public ResponseEntity<Object> checkLogin(UserEntity user) {
         HttpHeaders responseHeaders = new HttpHeaders();
-        User userData = null;
+        UserEntity userData = null;
         try {
             userData = userAccountRepository.findByEmail(user.getEmail());
             if (userData != null && EncryptionDecryption.checkLogin(user.getPassword(), userData.getPassword())) {
@@ -63,7 +60,7 @@ public class ManageAccount {
     public boolean setRemove(String email) {
         boolean result = false;
         try {
-            User user = userAccountRepository.findByEmail(email);
+            UserEntity user = userAccountRepository.findByEmail(email);
             if (user != null) {
                 user.setDelete(true);
                 userAccountRepository.save(user);
@@ -76,11 +73,11 @@ public class ManageAccount {
         }
     }
 
-    public ResponseEntity<Object> updateUser(User user) {
+    public ResponseEntity<Object> updateUser(UserEntity user) {
         HttpHeaders responseHeaders = new HttpHeaders();
         ResponseEntity<Object> result;
         try {
-            User old = userAccountRepository.findByEmail(user.getEmail());
+            UserEntity old = userAccountRepository.findByEmail(user.getEmail());
             if (old != null && user.getPassword().equals(old.getPassword()) && user.getId() != null) {
                 userAccountRepository.save(user);//cho nay can lam ham updateUser trong model
                 responseHeaders.set(SUCCESS, "user update Success");

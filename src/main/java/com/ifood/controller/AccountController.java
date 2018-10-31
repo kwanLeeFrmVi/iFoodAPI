@@ -1,7 +1,7 @@
 package com.ifood.controller;
 
-import com.ifood.domain.User;
-import com.ifood.service.ManageAccount;
+import com.ifood.domain.UserEntity;
+import com.ifood.service.ManageAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,19 +12,19 @@ import static com.ifood.config.Constants.FAIL;
 import static com.ifood.config.Constants.SUCCESS;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class AccountController {
     @Autowired
-    private ManageAccount manageAccount;
+    private ManageAccountService manageAccountService;
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public String getTestValue(){
         return "Success";
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<Object> createAccount(@RequestBody User newUser){
-        return manageAccount.CreateUser(newUser);
+    @PutMapping("/create")
+    public ResponseEntity<Object> createAccount(@RequestBody UserEntity newUser){
+        return manageAccountService.CreateUser(newUser);
     }
 
 //    @GetMapping("/getbyemail")
@@ -33,18 +33,18 @@ public class AccountController {
 //    }
 
     @PostMapping("/checklogin")
-    public ResponseEntity<Object> checkLogin(@RequestBody User newUser){
-        return manageAccount.checkLogin(newUser);
+    public ResponseEntity<Object> checkLogin(@RequestBody UserEntity newUser){
+        return manageAccountService.checkLogin(newUser);
     }
     @PostMapping("/update")
-    public ResponseEntity<Object> updateUser(@RequestBody User newUser){
-        return manageAccount.updateUser(newUser);
+    public ResponseEntity<Object> updateUser(@RequestBody UserEntity newUser){
+        return manageAccountService.updateUser(newUser);
     }
 
-    @GetMapping("/remove")
+    @DeleteMapping("/remove")
     public String removeUser(@RequestParam("email") String email, HttpServletResponse response){
         String result = FAIL;
-        if(manageAccount.setRemove(email)){
+        if(manageAccountService.setRemove(email)){
             response.addHeader(SUCCESS, "User has been set removed");
             result = SUCCESS;
         }else

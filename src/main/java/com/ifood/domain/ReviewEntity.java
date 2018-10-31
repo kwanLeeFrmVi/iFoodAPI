@@ -1,15 +1,13 @@
 package com.ifood.domain;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-public class Review {
+@Table(name = "Review", schema = "dbo", catalog = "I_Food")
+public class ReviewEntity {
     private int id;
     private UUID dishId;
     private UUID userId;
@@ -19,7 +17,7 @@ public class Review {
     private Boolean isDelete;
 
     @Id
-    @Column(name = "Id", nullable = false)
+    @Column(name = "Id")
     public int getId() {
         return id;
     }
@@ -29,7 +27,7 @@ public class Review {
     }
 
     @Basic
-    @Column(name = "DishId", nullable = false)
+    @Column(name = "DishId")
     public UUID getDishId() {
         return dishId;
     }
@@ -39,7 +37,7 @@ public class Review {
     }
 
     @Basic
-    @Column(name = "UserId", nullable = true)
+    @Column(name = "UserId")
     public UUID getUserId() {
         return userId;
     }
@@ -49,7 +47,7 @@ public class Review {
     }
 
     @Basic
-    @Column(name = "Comment", nullable = true, length = 2147483647)
+    @Column(name = "Comment")
     public String getComment() {
         return comment;
     }
@@ -59,7 +57,7 @@ public class Review {
     }
 
     @Basic
-    @Column(name = "Rate", nullable = true, precision = 0)
+    @Column(name = "Rate")
     public Double getRate() {
         return rate;
     }
@@ -69,7 +67,7 @@ public class Review {
     }
 
     @Basic
-    @Column(name = "ReviewOn", nullable = true)
+    @Column(name = "ReviewOn")
     public Timestamp getReviewOn() {
         return reviewOn;
     }
@@ -79,7 +77,7 @@ public class Review {
     }
 
     @Basic
-    @Column(name = "IsDelete", nullable = true)
+    @Column(name = "IsDelete")
     public Boolean getDelete() {
         return isDelete;
     }
@@ -92,14 +90,14 @@ public class Review {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Review review = (Review) o;
-        return id == review.id &&
-                Objects.equals(dishId, review.dishId) &&
-                Objects.equals(userId, review.userId) &&
-                Objects.equals(comment, review.comment) &&
-                Objects.equals(rate, review.rate) &&
-                Objects.equals(reviewOn, review.reviewOn) &&
-                Objects.equals(isDelete, review.isDelete);
+        ReviewEntity that = (ReviewEntity) o;
+        return id == that.id &&
+                Objects.equals(dishId, that.dishId) &&
+                Objects.equals(userId, that.userId) &&
+                Objects.equals(comment, that.comment) &&
+                Objects.equals(rate, that.rate) &&
+                Objects.equals(reviewOn, that.reviewOn) &&
+                Objects.equals(isDelete, that.isDelete);
     }
 
     @Override

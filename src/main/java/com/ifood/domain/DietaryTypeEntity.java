@@ -1,20 +1,18 @@
 package com.ifood.domain;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-public class DietaryType {
+@Table(name = "DietaryType", schema = "dbo", catalog = "I_Food")
+public class DietaryTypeEntity {
     private int id;
     private String name;
     private String description;
     private Boolean isDelete;
 
     @Id
-    @Column(name = "Id", nullable = false)
+    @Column(name = "Id")
     public int getId() {
         return id;
     }
@@ -24,7 +22,7 @@ public class DietaryType {
     }
 
     @Basic
-    @Column(name = "Name", nullable = false, length = 50)
+    @Column(name = "Name")
     public String getName() {
         return name;
     }
@@ -34,7 +32,7 @@ public class DietaryType {
     }
 
     @Basic
-    @Column(name = "Description", nullable = true, length = 2147483647)
+    @Column(name = "Description")
     public String getDescription() {
         return description;
     }
@@ -44,7 +42,7 @@ public class DietaryType {
     }
 
     @Basic
-    @Column(name = "IsDelete", nullable = true)
+    @Column(name = "IsDelete")
     public Boolean getDelete() {
         return isDelete;
     }
@@ -57,7 +55,7 @@ public class DietaryType {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DietaryType that = (DietaryType) o;
+        DietaryTypeEntity that = (DietaryTypeEntity) o;
         return id == that.id &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(description, that.description) &&

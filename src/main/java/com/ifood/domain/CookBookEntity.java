@@ -6,16 +6,16 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-@Table(name = "User_Dietary", schema = "dbo", catalog = "I_Food")
-public class UserDietary {
+@Table(name = "CookBook", schema = "dbo", catalog = "I_Food")
+public class CookBookEntity {
     private int id;
     private UUID userId;
-    private int dietaryId;
     private String description;
     private Timestamp createOn;
+    private Boolean isDelete;
 
     @Id
-    @Column(name = "Id", nullable = false)
+    @Column(name = "Id")
     public int getId() {
         return id;
     }
@@ -25,7 +25,7 @@ public class UserDietary {
     }
 
     @Basic
-    @Column(name = "UserId", nullable = false)
+    @Column(name = "UserId")
     public UUID getUserId() {
         return userId;
     }
@@ -35,17 +35,7 @@ public class UserDietary {
     }
 
     @Basic
-    @Column(name = "DietaryId", nullable = false)
-    public int getDietaryId() {
-        return dietaryId;
-    }
-
-    public void setDietaryId(int dietaryId) {
-        this.dietaryId = dietaryId;
-    }
-
-    @Basic
-    @Column(name = "Description", nullable = true, length = 2147483647)
+    @Column(name = "Description")
     public String getDescription() {
         return description;
     }
@@ -55,7 +45,7 @@ public class UserDietary {
     }
 
     @Basic
-    @Column(name = "CreateOn", nullable = true)
+    @Column(name = "CreateOn")
     public Timestamp getCreateOn() {
         return createOn;
     }
@@ -64,20 +54,30 @@ public class UserDietary {
         this.createOn = createOn;
     }
 
+    @Basic
+    @Column(name = "IsDelete")
+    public Boolean getDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(Boolean delete) {
+        isDelete = delete;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserDietary that = (UserDietary) o;
+        CookBookEntity that = (CookBookEntity) o;
         return id == that.id &&
-                dietaryId == that.dietaryId &&
                 Objects.equals(userId, that.userId) &&
                 Objects.equals(description, that.description) &&
-                Objects.equals(createOn, that.createOn);
+                Objects.equals(createOn, that.createOn) &&
+                Objects.equals(isDelete, that.isDelete);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, dietaryId, description, createOn);
+        return Objects.hash(id, userId, description, createOn, isDelete);
     }
 }
