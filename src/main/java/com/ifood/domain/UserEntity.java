@@ -1,8 +1,10 @@
 package com.ifood.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -15,18 +17,32 @@ import java.util.UUID;
 @Entity
 @Table(name = "User", schema = "dbo", catalog = "I_Food")
 public class UserEntity {
+    @JsonProperty("id")
     private UUID id;
+    @JsonProperty("name")
     private String name;
+    @JsonProperty("description")
     private String description;
+    @JsonProperty("email")
     private String email;
+    @JsonProperty("password")
     private String password;
+    @JsonProperty("phoneNumber")
     private String phoneNumber;
+    @JsonProperty("city")
     private String city;
+    @JsonProperty("district")
     private String district;
+    @JsonProperty("street")
+    private String street;
+    @JsonProperty("isDelete")
+    private boolean isDelete;
+    @JsonProperty("address")
     private String address;
-    private Boolean isDelete;
 
     @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "Id")
     public UUID getId() {
         return id;
