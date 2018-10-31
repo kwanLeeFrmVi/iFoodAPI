@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/dish")
@@ -17,17 +16,17 @@ public class DishController {
     @Autowired
     private DishService dishService;
 
-    @GetMapping("/")
-    public ResponseEntity<Object> getDishesByCategoryId(@RequestBody UUID categoryId){
-        return dishService.getDishesByCategoryId(categoryId);
-    }
+//    @GetMapping("/")
+//    public ResponseEntity<Object> getDishesByCategoryId(@RequestBody String categoryId){
+//        return dishService.getDishesByCategoryId(categoryId);
+//    }
 
-    @GetMapping("/")
+    @GetMapping("/String")
     public ResponseEntity<Object> getDishesByString(@RequestBody String string){
         return dishService.getDishesByString(string);
     }
 
-    @GetMapping("/")
+    @GetMapping("/Courses")
     public ResponseEntity<Object> getDishesByCourses (@RequestBody List<String> courses){
         return dishService.getDishesByCourses(courses);
     }

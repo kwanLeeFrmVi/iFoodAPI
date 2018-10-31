@@ -20,7 +20,7 @@ public class DishEntity {
 
     @Transient
     private List<IngredientEntity> ingredients;
-
+    @Transient
     public List<IngredientEntity> getIngredients() {
         return ingredients;
     }

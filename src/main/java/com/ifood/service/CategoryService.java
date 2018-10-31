@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import static com.ifood.config.Constants.FAIL;
 import static com.ifood.config.Constants.SUCCESS;
@@ -38,7 +37,7 @@ public class CategoryService {
         }
     }
 
-    public ResponseEntity<Object> getCategoryById (UUID categoryId){
+    public ResponseEntity<Object> getCategoryById (String categoryId){
         HttpHeaders responseHeaders = new HttpHeaders();
         Optional<CategoryEntity> category = null;
         try {

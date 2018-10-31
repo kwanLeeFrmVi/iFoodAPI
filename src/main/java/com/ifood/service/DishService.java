@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import static com.ifood.config.Constants.SUCCESS;
 
@@ -25,7 +24,7 @@ public class DishService {
     @Autowired(required = true)
     private IngredientRepository ingredientRepository;
 
-    public ResponseEntity<Object> getDishesById (UUID dishId){
+    public ResponseEntity<Object> getDishesById (String dishId){
         HttpHeaders responseHeaders = new HttpHeaders();
         Optional<DishEntity> dish = null;
         try {
@@ -43,21 +42,21 @@ public class DishService {
         }
     }
 
-    public ResponseEntity<Object> getDishesByCategoryId(UUID categoryId){
-        HttpHeaders responseHeaders = new HttpHeaders();
-        List<DishEntity> dishes = new ArrayList<>();
-        try {
-            dishes = dishRepository.findByCategoryId(categoryId);
-            responseHeaders.set(SUCCESS, "get dishes success");
-        } catch (Exception e){
-            e.printStackTrace();
-            log.error(e.getMessage());
-        } finally {
-            return ResponseEntity.ok()
-                    .headers(responseHeaders)
-                    .body(dishes);
-        }
-    }
+//    public ResponseEntity<Object> getDishesByCategoryId(String categoryId){
+//        HttpHeaders responseHeaders = new HttpHeaders();
+//        List<DishEntity> dishes = new ArrayList<>();
+//        try {
+//            dishes = dishRepository.findByCategoryId(categoryId);
+//            responseHeaders.set(SUCCESS, "get dishes success");
+//        } catch (Exception e){
+//            e.printStackTrace();
+//            log.error(e.getMessage());
+//        } finally {
+//            return ResponseEntity.ok()
+//                    .headers(responseHeaders)
+//                    .body(dishes);
+//        }
+//    }
 
     public ResponseEntity<Object> getDishesByString(String string){
         HttpHeaders responseHeaders = new HttpHeaders();

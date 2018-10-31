@@ -25,8 +25,7 @@ public class CookBookEntity {
     private Boolean isDelete;
 
     @Id
-    @GeneratedValue(generator = "cookbook-uuid")
-    @GenericGenerator(name = "cookbook-uuid", strategy = "uuid")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Id")
     public int getId() {
         return id;

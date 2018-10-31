@@ -8,12 +8,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Repository
-public interface DishRepository extends CrudRepository<DishEntity, UUID> {
-    Optional<DishEntity> findById(UUID dishId);
-    List<DishEntity> findByCategoryId (UUID categoryId);
+public interface DishRepository extends CrudRepository<DishEntity, String> {
+    Optional<DishEntity> findById(String dishId);
+//    List<DishEntity> findByCategoryId (String categoryId);
     @Query("SELECT dish FROM DishEntity dish WHERE dish.name like '%string%' AND dish.delete = false ")
     List<DishEntity> findByString (@Param("string")String string);
 
