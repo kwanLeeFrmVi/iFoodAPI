@@ -8,7 +8,7 @@ import java.util.Objects;
 
 
 @Entity
-@Table(name = "Category", schema = "dbo", catalog = "I_Food")
+@Table(name = "\"Category\"", schema = "dbo", catalog = "I_Food")
 public class CategoryEntity {
     @JsonProperty("id")
     private String id;

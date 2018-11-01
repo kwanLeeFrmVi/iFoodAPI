@@ -9,7 +9,7 @@ import java.util.Objects;
 
 
 @Entity
-@Table(name = "Dish", schema = "dbo", catalog = "I_Food")
+@Table(name = "\"Dish\"", schema = "dbo", catalog = "I_Food")
 public class DishEntity {
     private String id;
     private String authorId;

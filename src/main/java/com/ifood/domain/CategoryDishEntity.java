@@ -5,7 +5,7 @@ import java.util.Objects;
 
 
 @Entity
-@Table(name = "Category_Dish", schema = "dbo", catalog = "I_Food")
+@Table(name = "\"Category_Dish\"", schema = "dbo", catalog = "I_Food")
 public class CategoryDishEntity {
     private int id;
     private String categoryId;

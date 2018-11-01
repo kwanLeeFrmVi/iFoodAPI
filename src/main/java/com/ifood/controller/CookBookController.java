@@ -1,10 +1,13 @@
 package com.ifood.controller;
 
+import com.ifood.domain.CookBookDishEntity;
 import com.ifood.domain.CookBookEntity;
 import com.ifood.service.ManageCookBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/cookbook")
@@ -33,5 +36,9 @@ public class CookBookController {
     @DeleteMapping("")
     public ResponseEntity<Object> deleteCookBook(@RequestParam("id")int id ){
         return manageCookBookService.removeCookbook(id);
+    }
+    @PutMapping("/dish")
+    public ResponseEntity<Object> addDishToCookBook(@RequestBody List<CookBookDishEntity> cookBookDishs){
+        return manageCookBookService.addDishToCookBook(cookBookDishs);
     }
 }
