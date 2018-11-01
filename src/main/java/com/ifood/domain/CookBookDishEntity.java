@@ -5,13 +5,14 @@ import java.util.Objects;
 
 
 @Entity
-@Table(name = "CookBook_Dish", schema = "dbo", catalog = "I_Food")
+@Table(name = "\"CookBook_Dish\"", schema = "dbo", catalog = "I_Food")
 public class CookBookDishEntity {
     private int id;
     private String dishId;
     private int cookbookId;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     public int getId() {
         return id;

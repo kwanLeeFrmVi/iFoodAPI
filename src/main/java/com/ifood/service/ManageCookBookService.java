@@ -6,7 +6,7 @@ import com.ifood.repository.CookBookDishRepository;
 import com.ifood.repository.CookBookRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -27,106 +27,79 @@ public class ManageCookBookService {
     private CookBookDishRepository cookBookDishRepository;
 
     public ResponseEntity<Object> createCookBook(CookBookEntity cookBook) {
-        HttpHeaders responseHeaders = new HttpHeaders();
+        ResponseEntity<Object> result = new ResponseEntity<>(ERROR, HttpStatus.BAD_REQUEST);
         try {
             if (!checkIsExist(cookBook) &&
                     cookBook.getName() != null) {
                 cookBook.setCreateOn(new Timestamp(System.currentTimeMillis()));
                 cookBook = cookBookRepository.save(cookBook);
-                responseHeaders.set(SUCCESS, "cookbook create success");
-            } else {
-                responseHeaders.set(ERROR, "cookbook already exists or invalid");
+                result = new ResponseEntity<>(cookBook, HttpStatus.ACCEPTED);
             }
         } catch (Exception e) {
-            cookBook = null;
             log.error(e.getMessage());
-            responseHeaders.set(ERROR, "Create error, invalid usserId");
         } finally {
-            return ResponseEntity.ok()
-                    .headers(responseHeaders)
-                    .body(cookBook);
+            return result;
         }
     }
 
     public ResponseEntity<Object> getCookbook(int id) {
-        HttpHeaders responseHeaders = new HttpHeaders();
         List<CookBookEntity> value = new ArrayList<>();
+        ResponseEntity<Object> result = new ResponseEntity<>(ERROR, HttpStatus.BAD_REQUEST);
         try {
             cookBookRepository.findById(id).ifPresent(value::add);
-            if (value.isEmpty()) {
-                responseHeaders.set(ERROR, "cookbook id not exists ");
-            } else {
-                responseHeaders.set(SUCCESS, "cookbook get success ");
+            if (!value.isEmpty()) {
+                result = new ResponseEntity<>(value, HttpStatus.ACCEPTED);
             }
         } catch (Exception e) {
             log.error(e.getMessage());
-            responseHeaders.set(ERROR, "get error");
         } finally {
-
-            return ResponseEntity.ok()
-                    .headers(responseHeaders)
-                    .body(value.get(0));
+            return result;
         }
     }
 
     public ResponseEntity<Object> getCookbookByUserId(String userId) {
-        HttpHeaders responseHeaders = new HttpHeaders();
         List<CookBookEntity> value = null;
+        ResponseEntity<Object> result = new ResponseEntity<>(ERROR, HttpStatus.BAD_REQUEST);
         try {
             value = cookBookRepository.findByUserId(userId);
-            if (value == null || value.isEmpty()) {
-                responseHeaders.set(ERROR, "cookbook id not exists ");
-            } else {
-                responseHeaders.set(SUCCESS, "cookbook get success ");
+            if (value != null && !value.isEmpty()) {
                 for (CookBookEntity cb : value) {
                     cb.setDishOfCookBook(cookBookDishRepository.findByCookbookId(cb.getId()));
                 }
+                result = new ResponseEntity<>(value, HttpStatus.ACCEPTED);
             }
         } catch (Exception e) {
             log.error(e.getMessage());
-            responseHeaders.set(ERROR, "get error");
         } finally {
-
-            return ResponseEntity.ok()
-                    .headers(responseHeaders)
-                    .body(value);
+            return result;
         }
     }
 
     public ResponseEntity<Object> updateCookBook(CookBookEntity cookBook) {
-        HttpHeaders responseHeaders = new HttpHeaders();
+        ResponseEntity<Object> result = new ResponseEntity<>(ERROR, HttpStatus.BAD_REQUEST);
         try {
             if (cookBook.getId() > 0) {
                 cookBook = cookBookRepository.save(cookBook);
-                responseHeaders.set(SUCCESS, "cookbook update success");
-            } else {
-                responseHeaders.set(ERROR, "cookbook id invalid");
+                result = new ResponseEntity<>(cookBook, HttpStatus.ACCEPTED);
             }
         } catch (Exception e) {
-            cookBook = null;
             log.error(e.getMessage());
-            responseHeaders.set(ERROR, "update error");
         } finally {
-            return ResponseEntity.ok()
-                    .headers(responseHeaders)
-                    .body(cookBook);
+            return result;
         }
     }
 
 
     public ResponseEntity<Object> removeCookbook(int id) {
-        HttpHeaders responseHeaders = new HttpHeaders();
+        ResponseEntity<Object> result = new ResponseEntity<>(ERROR, HttpStatus.BAD_REQUEST);
         try {
             cookBookRepository.deleteById(id);
-            responseHeaders.set(SUCCESS, "cookbook remove success");
+            result = new ResponseEntity<>(SUCCESS, HttpStatus.ACCEPTED);
         } catch (Exception e) {
             log.error(e.getMessage());
-            responseHeaders.set(ERROR, "remove error");
         } finally {
 
-            return ResponseEntity.ok()
-                    .headers(responseHeaders)
-                    .body(SUCCESS);
+            return result;
         }
     }
 
@@ -136,21 +109,18 @@ public class ManageCookBookService {
 
 
     public ResponseEntity<Object> addDishToCookBook(List<CookBookDishEntity> cbDishList) {
-        HttpHeaders responseHeaders = new HttpHeaders();
-
+        ResponseEntity<Object> result = null;
         try {
-                for (CookBookDishEntity cbd : cbDishList){
-                    if(cbd.getDishId()!=null && cbd.getCookbookId()>0)
-                        cookBookDishRepository.save(cbd);
-                }
+            for (CookBookDishEntity cbd : cbDishList) {
+                if (cbd.getDishId() != null && cbd.getCookbookId() > 0)
+                    cookBookDishRepository.save(cbd);
+            }
+            result = new ResponseEntity<>(SUCCESS, HttpStatus.ACCEPTED);
         } catch (Exception e) {
             log.error(e.getMessage());
-            responseHeaders.set(ERROR, "remove error");
+            result = new ResponseEntity<>("wrong dishId or CookbookId", HttpStatus.BAD_REQUEST);
         } finally {
-
-            return ResponseEntity.ok()
-                    .headers(responseHeaders)
-                    .body(SUCCESS);
+            return result;
         }
     }
 }
