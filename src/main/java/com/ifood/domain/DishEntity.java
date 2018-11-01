@@ -21,7 +21,24 @@ public class DishEntity {
     private Boolean isDelete;
 
     @Transient
+    @Access(AccessType.PROPERTY)
+    private List<CourseEntity> courses;
+    @Transient
     private List<IngredientEntity> ingredients;
+    @Transient
+    private List<ReviewEntity> reviews;
+    @Transient
+    private List<DishEntity> relatedDishes;
+
+    @Transient
+    public List<CourseEntity> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<CourseEntity> courses) {
+        this.courses = courses;
+    }
+
     @Transient
     public List<IngredientEntity> getIngredients() {
         return ingredients;
@@ -29,6 +46,24 @@ public class DishEntity {
 
     public void setIngredients(List<IngredientEntity> ingredients) {
         this.ingredients = ingredients;
+    }
+
+    @Transient
+    public List<ReviewEntity> getReviews() {
+        return reviews;
+    }
+
+    public void setReviewes(List<ReviewEntity> reviews) {
+        this.reviews = reviews;
+    }
+
+    @Transient
+    public List<DishEntity> getRelatedDishes() {
+        return relatedDishes;
+    }
+
+    public void setRelatedDishes(List<DishEntity> relatedDishes) {
+        this.relatedDishes = relatedDishes;
     }
 
     @Id
