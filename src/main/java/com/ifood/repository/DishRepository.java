@@ -12,7 +12,12 @@ import java.util.Optional;
 @Repository
 public interface DishRepository extends CrudRepository<DishEntity, String> {
     Optional<DishEntity> findById(String dishId);
-//    List<DishEntity> findByCategoryId (String categoryId);
+
+    @Query("Select dish From DishEntity dish join CategoryDishEntity cd on dish.id = cd.dishId" +
+            " join CategoryEntity category on category.id = cd.categoryId" +
+            " Where category.id = 'categoryId' And dish.delete = false ")
+    List<DishEntity> findByCategoryId (@Param("categoryId")String categoryId);
+
     @Query("SELECT dish FROM DishEntity dish WHERE dish.name like '%string%' AND dish.delete = false ")
     List<DishEntity> findByString (@Param("string")String string);
 
