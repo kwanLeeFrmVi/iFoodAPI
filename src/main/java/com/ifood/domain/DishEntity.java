@@ -9,7 +9,7 @@ import java.util.Objects;
 
 
 @Entity
-@Table(name = "Dish", schema = "dbo", catalog = "I_Food")
+@Table(name = "\"Dish\"", schema = "dbo", catalog = "I_Food")
 public class DishEntity {
     private String id;
     private String authorId;
@@ -19,9 +19,10 @@ public class DishEntity {
     private Double rate;
     private Boolean isActive;
     private Boolean isDelete;
+    private String recipes;
+    private String timeCooking;
 
     @Transient
-    @Access(AccessType.PROPERTY)
     private List<CourseEntity> courses;
     @Transient
     private List<IngredientEntity> ingredients;
@@ -29,8 +30,7 @@ public class DishEntity {
     private List<ReviewEntity> reviews;
     @Transient
     private List<DishEntity> relatedDishes;
-    private String recipes;
-    private String timeCooking;
+
 
     @Transient
     public List<CourseEntity> getCourses() {
