@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static com.ifood.config.Constants.SUCCESS;
 
@@ -53,8 +54,9 @@ public class DishService {
             dish.setReviewes(reviews);
 
             //Related Dishes
-            List<DishEntity> relatedDishes = dishRepository.findByCourse(dish.getCourses().get(0).getName());
-            dish.setRelatedDishes(relatedDishes);
+            /*String firstCourse = dish.getCourses().get(0).getName();
+            List<DishEntity> relatedDishes = dishRepository.findByCourse(firstCourse);
+            dish.setRelatedDishes(relatedDishes);*/
 
             responseHeaders.set(SUCCESS, "get dishes success");
         } catch (Exception e){

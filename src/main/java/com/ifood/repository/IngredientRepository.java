@@ -12,6 +12,6 @@ import java.util.List;
 public interface IngredientRepository extends CrudRepository<IngredientEntity, String> {
     @Query("SELECT ingredient FROM DishEntity dish join DishIngredientEntity di on dish.id = di.dishId" +
             " join IngredientEntity ingredient on di.ingredientId = ingredient.id" +
-            " WHERE dish.id = 'dishId' AND ingredient.delete = false")
+            " WHERE dish.id = :dishId AND ingredient.delete = false")
     List<IngredientEntity> findByDishId (@Param("dishId") String dishId);
 }
