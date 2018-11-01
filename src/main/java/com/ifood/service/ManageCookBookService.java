@@ -40,7 +40,7 @@ public class ManageCookBookService {
         } catch (Exception e) {
             cookBook = null;
             log.error(e.getMessage());
-            responseHeaders.set(ERROR, "Create error");
+            responseHeaders.set(ERROR, "Create error, invalid usserId");
         } finally {
             return ResponseEntity.ok()
                     .headers(responseHeaders)

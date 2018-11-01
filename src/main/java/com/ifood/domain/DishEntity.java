@@ -23,6 +23,7 @@ public class DishEntity {
     private String timeCooking;
 
     @Transient
+    @Access(AccessType.PROPERTY)
     private List<CourseEntity> courses;
     @Transient
     private List<IngredientEntity> ingredients;
@@ -30,7 +31,6 @@ public class DishEntity {
     private List<ReviewEntity> reviews;
     @Transient
     private List<DishEntity> relatedDishes;
-
 
     @Transient
     public List<CourseEntity> getCourses() {
