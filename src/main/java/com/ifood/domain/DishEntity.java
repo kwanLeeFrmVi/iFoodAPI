@@ -29,6 +29,8 @@ public class DishEntity {
     private List<ReviewEntity> reviews;
     @Transient
     private List<DishEntity> relatedDishes;
+    private String recipes;
+    private String timeCooking;
 
     @Transient
     public List<CourseEntity> getCourses() {
@@ -166,5 +168,25 @@ public class DishEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id, authorId, name, description, createOn, rate, isActive, isDelete);
+    }
+
+    @Basic
+    @Column(name = "Recipes")
+    public String getRecipes() {
+        return recipes;
+    }
+
+    public void setRecipes(String recipes) {
+        this.recipes = recipes;
+    }
+
+    @Basic
+    @Column(name = "TimeCooking")
+    public String getTimeCooking() {
+        return timeCooking;
+    }
+
+    public void setTimeCooking(String timeCooking) {
+        this.timeCooking = timeCooking;
     }
 }
