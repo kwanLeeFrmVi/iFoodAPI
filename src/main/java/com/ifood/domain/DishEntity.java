@@ -19,6 +19,8 @@ public class DishEntity {
     private Double rate;
     private Boolean isActive;
     private Boolean isDelete;
+    private String recipes;
+    private String timeCooking;
 
     @Transient
     @Access(AccessType.PROPERTY)
@@ -29,8 +31,6 @@ public class DishEntity {
     private List<ReviewEntity> reviews;
     @Transient
     private List<DishEntity> relatedDishes;
-    private String recipes;
-    private String timeCooking;
 
     @Transient
     public List<CourseEntity> getCourses() {
