@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -23,6 +24,8 @@ public class CookBookEntity {
     private Timestamp createOn;
     @JsonProperty("isDelete")
     private Boolean isDelete;
+    @JsonProperty("dishOfCookBook")
+    private List<CookBookDishEntity> dishOfCookBook;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -83,6 +86,15 @@ public class CookBookEntity {
 
     public void setDelete(Boolean delete) {
         isDelete = delete;
+    }
+
+    @Transient
+    public List<CookBookDishEntity> getDishOfCookBook() {
+        return dishOfCookBook;
+    }
+
+    public void setDishOfCookBook(List<CookBookDishEntity> dishOfCookBook) {
+        this.dishOfCookBook = dishOfCookBook;
     }
 
     @Override

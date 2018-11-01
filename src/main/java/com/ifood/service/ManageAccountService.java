@@ -30,6 +30,7 @@ public class ManageAccountService {
             }
         } catch (Exception e) {
             myLoger(e);
+            user=null;
             responseHeaders.set(ERROR, "Create error");
         } finally {
             return ResponseEntity.ok()
@@ -100,7 +101,7 @@ public class ManageAccountService {
     }
 
     private void myLoger(Exception e) {
-        e.printStackTrace();
         log.error(e.getMessage());
     }
+
 }

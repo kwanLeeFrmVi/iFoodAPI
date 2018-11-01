@@ -1,5 +1,7 @@
 package com.ifood.domain;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
@@ -30,6 +32,8 @@ public class DishEntity {
     }
 
     @Id
+    @GeneratedValue(generator = "dish-uuid")
+    @GenericGenerator(name = "dish-uuid", strategy = "uuid2")
     @Column(name = "Id")
     public String getId() {
         return id;

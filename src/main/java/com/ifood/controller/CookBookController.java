@@ -4,10 +4,7 @@ import com.ifood.domain.CookBookEntity;
 import com.ifood.service.ManageCookBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/cookbook")
@@ -16,7 +13,25 @@ public class CookBookController {
     private ManageCookBookService manageCookBookService;
 
     @PutMapping("")
-    public ResponseEntity<Object> createAccount(@RequestBody CookBookEntity cookBook){
+    public ResponseEntity<Object> createCookBook(@RequestBody CookBookEntity cookBook){
         return manageCookBookService.createCookBook(cookBook);
+    }
+
+    @GetMapping("")
+    public ResponseEntity<Object> getCookBook(@RequestParam("id")int id ){
+        return manageCookBookService.getCookbook(id);
+    }
+    @GetMapping("/user")
+    public ResponseEntity<Object> getCookBook(@RequestParam("id")String userId ){
+        return manageCookBookService.getCookbookByUserId(userId);
+    }
+    @PostMapping("")
+    public ResponseEntity<Object> updateCookBook(@RequestBody CookBookEntity cookBook){
+        return manageCookBookService.updateCookBook(cookBook);
+    }
+
+    @DeleteMapping("")
+    public ResponseEntity<Object> deleteCookBook(@RequestParam("id")int id ){
+        return manageCookBookService.removeCookbook(id);
     }
 }
