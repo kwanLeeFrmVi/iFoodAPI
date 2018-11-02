@@ -20,7 +20,7 @@ import static com.ifood.config.Constants.*;
 
 @Service
 @Slf4j
-public class ManageCookBookService {
+public class CookBookService {
     @Autowired(required = true)
     private CookBookRepository cookBookRepository;
     @Autowired(required = true)
