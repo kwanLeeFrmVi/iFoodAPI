@@ -6,6 +6,7 @@ import com.ifood.util.EncryptionDecryption;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -18,54 +19,44 @@ public class ManageAccountService {
     private UserAccountRepository userAccountRepository;
 
     public ResponseEntity<Object> createUser(UserEntity user) {
-        HttpHeaders responseHeaders = new HttpHeaders();
+        ResponseEntity<Object> result = new ResponseEntity<>(ERROR, HttpStatus.BAD_REQUEST);
         try {
             if (!checkExistEmail(user.getEmail())) {
                 String loginPass = EncryptionDecryption.encrypt(user.getPassword());
                 user.setPassword(loginPass);
                 user = userAccountRepository.save(user);
-                responseHeaders.set(SUCCESS, "user create success");
-            } else {
-                responseHeaders.set(ERROR, "email already exists");
+                result = new ResponseEntity<>(user, HttpStatus.ACCEPTED);
             }
         } catch (Exception e) {
             myLoger(e);
-            user=null;
-            responseHeaders.set(ERROR, "Create error");
         } finally {
-            return ResponseEntity.ok()
-                    .headers(responseHeaders)
-                    .body(user);
+            return result;
         }
     }
 
     public ResponseEntity<Object> checkLogin(UserEntity user) {
-        HttpHeaders responseHeaders = new HttpHeaders();
+        ResponseEntity<Object> result = new ResponseEntity<>(ERROR, HttpStatus.BAD_REQUEST);
         UserEntity userData = null;
         try {
             userData = userAccountRepository.findByEmail(user.getEmail());
             if (userData != null && EncryptionDecryption.checkLogin(user.getPassword(), userData.getPassword())) {
-                responseHeaders.set(SUCCESS, "user is valid");
-            } else {
-                responseHeaders.set(ERROR, "Wrong password or email");
+                result = new ResponseEntity<>(user, HttpStatus.ACCEPTED);
             }
         } catch (Exception e) {
             myLoger(e);
         } finally {
-            return ResponseEntity.ok()
-                    .headers(responseHeaders)
-                    .body(userData);
+            return result;
         }
     }
 
-    public boolean setRemove(String email) {
-        boolean result = false;
+    public ResponseEntity<Object> setRemove(String email) {
+        ResponseEntity<Object> result = new ResponseEntity<>(ERROR, HttpStatus.BAD_REQUEST);
         try {
             UserEntity user = userAccountRepository.findByEmail(email);
             if (user != null) {
                 user.setDelete(true);
                 userAccountRepository.save(user);
-                result = true;
+                result = new ResponseEntity<>(user, HttpStatus.ACCEPTED);
             }
         } catch (Exception e) {
             myLoger(e);
@@ -75,26 +66,21 @@ public class ManageAccountService {
     }
 
     public ResponseEntity<Object> updateUser(UserEntity user) {
-        HttpHeaders responseHeaders = new HttpHeaders();
-        ResponseEntity<Object> result;
+        ResponseEntity<Object> result = new ResponseEntity<>(ERROR, HttpStatus.BAD_REQUEST);
         try {
             UserEntity old = userAccountRepository.findByEmail(user.getEmail());
             if (old != null && user.getPassword().equals(old.getPassword()) && user.getId() != null) {
-                userAccountRepository.save(user);//cho nay can lam ham updateUser trong model
-                responseHeaders.set(SUCCESS, "user update Success");
-            } else {
-                responseHeaders.set(ERROR, "Wrong password or email");
+                old.updateUser(user);
+                userAccountRepository.save(old);
+                result = new ResponseEntity<>(user, HttpStatus.ACCEPTED);
             }
         } catch (Exception e) {
             myLoger(e);
-            responseHeaders.set(ERROR, e.getMessage());
         } finally {
-            return ResponseEntity.ok()
-                    .headers(responseHeaders)
-                    .body(user);
+            return result;
         }
     }
-
+    //COn thieu update Password
     private boolean checkExistEmail(String email) {
         //already have = true;
         return (userAccountRepository.findByEmail(email) != null);

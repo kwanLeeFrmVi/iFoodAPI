@@ -42,13 +42,7 @@ public class AccountController {
     }
 
     @DeleteMapping("")
-    public String removeUser(@RequestParam("email") String email, HttpServletResponse response){
-        String result = FAIL;
-        if(manageAccountService.setRemove(email)){
-            response.addHeader(SUCCESS, "User has been set removed");
-            result = SUCCESS;
-        }else
-            response.addHeader(FAIL, "remove fail, User may not exist");
-        return result;
+    public ResponseEntity<Object> removeUser(@RequestParam("email") String email){
+        return manageAccountService.setRemove(email);
     }
 }

@@ -162,4 +162,20 @@ public class UserEntity {
     public int hashCode() {
         return Objects.hash(id, name, description, email, password, phoneNumber, city, district, address, isDelete);
     }
+
+    public void updateUser(UserEntity newUser){
+        if(newUser.name!=null)
+            this.name = newUser.name;
+        if(newUser.description!=null)
+            this.description = newUser.description;
+        if(newUser.phoneNumber!=null)
+            this.phoneNumber = newUser.phoneNumber;
+        if(newUser.district!=null)
+            this.district = newUser.district;
+        if(newUser.city!=null)
+            this.city = newUser.city;
+        if(newUser.address!=null)
+            this.address = newUser.address;
+
+    }
 }
