@@ -29,7 +29,7 @@ public class DishController {
     }
 
     @PostMapping("/getByCourses")
-    public ResponseEntity<Object> getDishesByCourses (@RequestBody List<String> courses){
-        return dishService.getDishesByCourses(courses);
+    public ResponseEntity<Object> getDishesByCourses (@RequestBody List<String> courses, String dishId){
+        return dishService.getDishesByCourses(courses, dishId);
     }
 }

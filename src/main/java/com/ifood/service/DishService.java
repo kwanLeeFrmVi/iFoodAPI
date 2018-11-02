@@ -1,9 +1,7 @@
 package com.ifood.service;
 
-import com.ifood.domain.CourseEntity;
-import com.ifood.domain.DishEntity;
-import com.ifood.domain.IngredientEntity;
-import com.ifood.domain.ReviewEntity;
+import com.ifood.domain.*;
+import com.ifood.domain.model.RelatedDish;
 import com.ifood.repository.CourseRepository;
 import com.ifood.repository.DishRepository;
 import com.ifood.repository.IngredientRepository;
@@ -54,9 +52,18 @@ public class DishService {
             dish.setReviewes(reviews);
 
             //Related Dishes
-            /*String firstCourse = dish.getCourses().get(0).getName();
-            List<DishEntity> relatedDishes = dishRepository.findByCourse(firstCourse);
-            dish.setRelatedDishes(relatedDishes);*/
+            List<DishEntity> relatedDishesEntity = new ArrayList<>();
+            for (CourseEntity courseEntity : dish.getCourses()){
+                String coursName = courseEntity.getName();
+                List<DishEntity> dishesInCourse = dishRepository.findByCourse(coursName, dish.getId());
+                relatedDishesEntity.addAll(dishesInCourse);
+            }
+            List<RelatedDish> relatedDishes = new ArrayList<>();
+            for (DishEntity entity : relatedDishesEntity){
+                RelatedDish relatedDish = new RelatedDish(entity.getId(), entity.getName(), 0);
+                relatedDishes.add(relatedDish);
+            }
+            dish.setRelatedDishes(relatedDishes);
 
             responseHeaders.set(SUCCESS, "get dishes success");
         } catch (Exception e){
@@ -101,12 +108,12 @@ public class DishService {
         }
     }
 
-    public ResponseEntity<Object> getDishesByCourses (List<String> courses){
+    public ResponseEntity<Object> getDishesByCourses (List<String> courses, String dishId){
         HttpHeaders responseHeaders = new HttpHeaders();
         List<DishEntity> dishes = new ArrayList<>();
         try {
             for (String course : courses){
-                List<DishEntity> dishEntities = dishRepository.findByCourse(course);
+                List<DishEntity> dishEntities = dishRepository.findByCourse(course, dishId);
                 dishes.addAll(dishEntities);
             }
             responseHeaders.set(SUCCESS, "get dishes success");

@@ -1,5 +1,6 @@
 package com.ifood.domain;
 
+import com.ifood.domain.model.RelatedDish;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -30,7 +31,7 @@ public class DishEntity {
     @Transient
     private List<ReviewEntity> reviews;
     @Transient
-    private List<DishEntity> relatedDishes;
+    private List<RelatedDish> relatedDishes;
 
     @Transient
     public List<CourseEntity> getCourses() {
@@ -60,11 +61,11 @@ public class DishEntity {
     }
 
     @Transient
-    public List<DishEntity> getRelatedDishes() {
+    public List<RelatedDish> getRelatedDishes() {
         return relatedDishes;
     }
 
-    public void setRelatedDishes(List<DishEntity> relatedDishes) {
+    public void setRelatedDishes(List<RelatedDish> relatedDishes) {
         this.relatedDishes = relatedDishes;
     }
 

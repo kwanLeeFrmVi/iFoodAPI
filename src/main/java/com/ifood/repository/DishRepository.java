@@ -19,11 +19,11 @@ public interface DishRepository extends CrudRepository<DishEntity, String> {
             " Where category.id = :categoryId And dish.delete = false ")
     List<DishEntity> findByCategoryId (@Param("categoryId") String categoryId);
 
-    @Query("SELECT dish FROM DishEntity dish WHERE dish.name like '%:string%' AND dish.delete = false ")
+    @Query("SELECT dish FROM DishEntity dish WHERE dish.name like %:string% AND dish.delete = false ")
     List<DishEntity> findByString (@Param("string")String string);
 
     @Query("SELECT dish FROM DishEntity dish join CourseDishEntity cd on dish.id = cd.dishId" +
             " join CourseEntity course on cd.courseId = course.id" +
-            " WHERE course.name like %:course%  AND course.delete = false ")
-    List<DishEntity> findByCourse (@Param("course") String course);
+            " WHERE course.name like %:course% AND dish.id != :dishId  AND course.delete = false ")
+    List<DishEntity> findByCourse (@Param("course") String course, @Param("dishId") String dishId);
 }
