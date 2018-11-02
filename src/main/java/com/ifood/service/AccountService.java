@@ -14,7 +14,7 @@ import static com.ifood.config.Constants.*;
 
 @Service
 @Slf4j
-public class ManageAccountService {
+public class AccountService {
     @Autowired(required = true)
     private UserAccountRepository userAccountRepository;
 
