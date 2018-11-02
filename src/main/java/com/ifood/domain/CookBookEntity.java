@@ -10,10 +10,10 @@ import java.util.Objects;
 
 
 @Entity
-@Table(name = "\"CookBook\"", schema = "dbo", catalog = "I_Food")
+@Table(name = "CookBook", schema = "dbo", catalog = "I_Food")
 public class CookBookEntity {
     @JsonProperty("id")
-    private int id;
+    private String id;
     @JsonProperty("name")
     private String name;
     @JsonProperty("userId")
@@ -30,11 +30,11 @@ public class CookBookEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

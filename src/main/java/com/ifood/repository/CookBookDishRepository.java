@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface CookBookDishRepository extends CrudRepository<CookBookDishEntity, Integer> {
-    List<CookBookDishEntity> findByCookbookId(Integer cookbookId);
+    List<CookBookDishEntity> findByCookbookId(String cookbookId);
 }

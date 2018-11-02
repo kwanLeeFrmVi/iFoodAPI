@@ -78,7 +78,7 @@ public class ManageCookBookService {
     public ResponseEntity<Object> updateCookBook(CookBookEntity cookBook) {
         ResponseEntity<Object> result = new ResponseEntity<>(ERROR, HttpStatus.BAD_REQUEST);
         try {
-            if (cookBook.getId() > 0) {
+            if (!cookBook.getId().isEmpty()) {
                 cookBook = cookBookRepository.save(cookBook);
                 result = new ResponseEntity<>(cookBook, HttpStatus.ACCEPTED);
             }

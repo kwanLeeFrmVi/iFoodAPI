@@ -17,6 +17,7 @@ public class ReviewEntity {
     private Boolean isDelete;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     public int getId() {
         return id;

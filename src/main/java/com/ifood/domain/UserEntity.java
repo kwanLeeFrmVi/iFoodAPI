@@ -14,7 +14,7 @@ import java.util.Objects;
 //@Data
 @AllArgsConstructor
 @Entity
-@Table(name = "\"User\"", schema = "dbo", catalog = "I_Food")
+@Table(name = "User", schema = "dbo", catalog = "I_Food")
 public class UserEntity {
     @JsonProperty("id")
     private String  id;
