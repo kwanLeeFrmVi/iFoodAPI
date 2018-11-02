@@ -123,4 +123,20 @@ public class ManageCookBookService {
             return result;
         }
     }
+
+    public ResponseEntity<Object> removeDishOutCookBook(List<CookBookDishEntity> cbDishList) {
+        ResponseEntity<Object> result = null;
+        try {
+            for (CookBookDishEntity cbd : cbDishList) {
+                if (cbd.getId() > 0)
+                    cookBookDishRepository.deleteById(cbd.getId());
+            }
+            result = new ResponseEntity<>(SUCCESS, HttpStatus.ACCEPTED);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            result = new ResponseEntity<>("wrong id", HttpStatus.BAD_REQUEST);
+        } finally {
+            return result;
+        }
+    }
 }
