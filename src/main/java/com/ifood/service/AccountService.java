@@ -40,7 +40,7 @@ public class AccountService {
         try {
             userData = userAccountRepository.findByEmail(user.getEmail());
             if (userData != null && EncryptionDecryption.checkLogin(user.getPassword(), userData.getPassword())) {
-                result = new ResponseEntity<>(user, HttpStatus.ACCEPTED);
+                result = new ResponseEntity<>(userData, HttpStatus.ACCEPTED);
             }
         } catch (Exception e) {
             myLoger(e);
