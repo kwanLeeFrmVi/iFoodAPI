@@ -11,4 +11,5 @@ import java.util.List;
 public interface CookBookRepository  extends CrudRepository<CookBookEntity, Integer> {
     CookBookEntity findByUserIdAndName(String userId, String name);
     List<CookBookEntity> findByUserId(String userId);
+    CookBookEntity findById(String cookbookId);
 }

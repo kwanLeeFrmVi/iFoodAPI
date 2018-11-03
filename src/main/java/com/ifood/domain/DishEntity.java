@@ -20,14 +20,15 @@ public class DishEntity {
     private Double rate;
     private Boolean isActive;
     private Boolean isDelete;
-    private String recipes;
     private String timeCooking;
+    private String imageLink;
 
     @Transient
-    @Access(AccessType.PROPERTY)
     private List<CourseEntity> courses;
     @Transient
     private List<IngredientEntity> ingredients;
+    @Transient
+    private List<StepByStepEntity> stepByStep;
     @Transient
     private List<ReviewEntity> reviews;
     @Transient
@@ -52,14 +53,22 @@ public class DishEntity {
     }
 
     @Transient
+    public List<StepByStepEntity> getStepByStep() {
+        return stepByStep;
+    }
+
+    public void setStepByStep(List<StepByStepEntity> stepByStep) {
+        this.stepByStep = stepByStep;
+    }
+
+    @Transient
     public List<ReviewEntity> getReviews() {
         return reviews;
     }
 
-    public void setReviewes(List<ReviewEntity> reviews) {
+    public void setReviews(List<ReviewEntity> reviews) {
         this.reviews = reviews;
     }
-
     @Transient
     public List<RelatedDish> getRelatedDishes() {
         return relatedDishes;
@@ -67,6 +76,16 @@ public class DishEntity {
 
     public void setRelatedDishes(List<RelatedDish> relatedDishes) {
         this.relatedDishes = relatedDishes;
+    }
+
+    @Basic
+    @Column(name = "ImageLink")
+    public String getImageLink() {
+        return imageLink;
+    }
+
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
     }
 
     @Id
@@ -169,16 +188,6 @@ public class DishEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id, authorId, name, description, createOn, rate, isActive, isDelete);
-    }
-
-    @Basic
-    @Column(name = "Recipes")
-    public String getRecipes() {
-        return recipes;
-    }
-
-    public void setRecipes(String recipes) {
-        this.recipes = recipes;
     }
 
     @Basic

@@ -2,10 +2,7 @@ package com.ifood.service;
 
 import com.ifood.domain.*;
 import com.ifood.domain.model.RelatedDish;
-import com.ifood.repository.CourseRepository;
-import com.ifood.repository.DishRepository;
-import com.ifood.repository.IngredientRepository;
-import com.ifood.repository.ReviewRepository;
+import com.ifood.repository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -30,6 +27,8 @@ public class DishService {
     private ReviewRepository reviewRepository;
     @Autowired(required = true)
     private CourseRepository courseRepository;
+    @Autowired(required = true)
+    private StepByStepRepository stepByStepRepository;
 
     public ResponseEntity<Object> getDishesById (String dishId){
         HttpHeaders responseHeaders = new HttpHeaders();
@@ -47,9 +46,13 @@ public class DishService {
             List<IngredientEntity> ingredients = ingredientRepository.findByDishId(dish.getId());
             dish.setIngredients(ingredients);
 
+            //Step By Step
+            List<StepByStepEntity> stepByStep = stepByStepRepository.findByDishId(dishId);
+            dish.setStepByStep(stepByStep);
+
             //Reviews
             List<ReviewEntity> reviews = reviewRepository.findByDishIdAndDelete(dish.getId(), false);
-            dish.setReviewes(reviews);
+            dish.setReviews(reviews);
 
             //Related Dishes
             List<DishEntity> relatedDishesEntity = new ArrayList<>();
