@@ -13,7 +13,7 @@ spring:
       jdbc:
         initialize-schema: always
   jpa:
-#    show-sql: true
+    show-sql: true
     dialect: org.hibernate.dialect.SQLServer2012Dialect
     ddl-auto: create-drop
     hibernate:
