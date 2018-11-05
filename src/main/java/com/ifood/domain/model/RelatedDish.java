@@ -3,15 +3,15 @@ package com.ifood.domain.model;
 public class RelatedDish {
     private String id;
     private String name;
-    private int image;
+    private String imageLink;
 
     public RelatedDish() {
     }
 
-    public RelatedDish(String id, String name, int image) {
+    public RelatedDish(String id, String name, String image) {
         this.id = id;
         this.name = name;
-        this.image = image;
+        this.imageLink = image;
     }
 
     public String getId() {
@@ -30,11 +30,11 @@ public class RelatedDish {
         this.name = name;
     }
 
-    public int getImage() {
-        return image;
+    public String getImageLink() {
+        return imageLink;
     }
 
-    public void setImage(int image) {
-        this.image = image;
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
     }
 }

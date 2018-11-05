@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Builder
@@ -38,6 +39,18 @@ public class UserEntity {
     private String address;
     @JsonProperty("isDelete")
     private boolean isDelete;
+
+    @OneToMany(mappedBy = "userReview")
+    private List<ReviewEntity> reviews;
+
+    @OneToMany(mappedBy = "userReview")
+    public List<ReviewEntity> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<ReviewEntity> reviews) {
+        this.reviews = null;
+    }
 
     @Id
     @GeneratedValue(generator = "user-uuid")

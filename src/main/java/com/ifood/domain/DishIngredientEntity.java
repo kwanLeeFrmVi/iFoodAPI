@@ -9,10 +9,22 @@ import java.util.Objects;
 public class DishIngredientEntity {
     private int id;
     private String dishId;
-    private String ingredientId;
     private Double amount;
     private Integer unitId;
     private String description;
+
+
+    private IngredientEntity dishIngredient;
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="IngredientId")
+    public IngredientEntity getDishIngredient() {
+        return dishIngredient;
+    }
+
+    public void setDishIngredient(IngredientEntity dishIngredient) {
+        this.dishIngredient = dishIngredient;
+    }
 
     @Id
     @Column(name = "Id")
@@ -32,16 +44,6 @@ public class DishIngredientEntity {
 
     public void setDishId(String dishId) {
         this.dishId = dishId;
-    }
-
-    @Basic
-    @Column(name = "IngredientId")
-    public String getIngredientId() {
-        return ingredientId;
-    }
-
-    public void setIngredientId(String ingredientId) {
-        this.ingredientId = ingredientId;
     }
 
     @Basic
@@ -81,7 +83,6 @@ public class DishIngredientEntity {
         DishIngredientEntity that = (DishIngredientEntity) o;
         return id == that.id &&
                 Objects.equals(dishId, that.dishId) &&
-                Objects.equals(ingredientId, that.ingredientId) &&
                 Objects.equals(amount, that.amount) &&
                 Objects.equals(unitId, that.unitId) &&
                 Objects.equals(description, that.description);
@@ -89,6 +90,6 @@ public class DishIngredientEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dishId, ingredientId, amount, unitId, description);
+        return Objects.hash(id, dishId, amount, unitId, description);
     }
 }

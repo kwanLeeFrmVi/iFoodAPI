@@ -13,13 +13,13 @@ public class DishController {
     @Autowired
     private DishService dishService;
 
-    @GetMapping("/getById")
-    public ResponseEntity<Object> getDishDetailById(String id){
+    @GetMapping("")
+    public ResponseEntity<Object> getDishDetailById(@RequestParam String id){
         return dishService.getDishesById(id);
     }
 
     @GetMapping("/getByCategory")
-    public ResponseEntity<Object> getDishesByCategoryId(String categoryId){
+    public ResponseEntity<Object> getDishesByCategoryId(@RequestParam String categoryId){
         return dishService.getDishesByCategoryId(categoryId);
     }
 

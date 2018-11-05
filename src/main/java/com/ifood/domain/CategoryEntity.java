@@ -21,6 +21,7 @@ public class CategoryEntity {
     @JsonIgnore
     private Boolean isDelete;
     private String imageLink;
+    private Integer displayOrder;
 
     @Id
     @Column(name = "Id")
@@ -97,5 +98,15 @@ public class CategoryEntity {
 
     public void setImageLink(String imageLink) {
         this.imageLink = imageLink;
+    }
+
+    @Basic
+    @Column(name = "DisplayOrder")
+    public Integer getDisplayOrder() {
+        return displayOrder;
+    }
+
+    public void setDisplayOrder(Integer displayOrder) {
+        this.displayOrder = displayOrder;
     }
 }

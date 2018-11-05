@@ -2,6 +2,7 @@ package com.ifood.service;
 
 import com.ifood.domain.*;
 import com.ifood.domain.model.RelatedDish;
+import com.ifood.domain.model.ReviewByUser;
 import com.ifood.repository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +52,14 @@ public class DishService {
             dish.setStepByStep(stepByStep);
 
             //Reviews
-            List<ReviewEntity> reviews = reviewRepository.findByDishIdAndDelete(dish.getId(), false);
+            List<ReviewEntity> reviewEntities = reviewRepository.findReviewEntitiesByDishId(dish.getId());
+            List<ReviewEntity> reviews = new ArrayList<>();
+
+            for (Object reviewEntity : reviewEntities){
+                Object[] objects = (Object[]) reviewEntity;
+                ReviewEntity review = (ReviewEntity) objects[0];
+                reviews.add(review);
+            }
             dish.setReviews(reviews);
 
             //Related Dishes
@@ -63,7 +71,7 @@ public class DishService {
             }
             List<RelatedDish> relatedDishes = new ArrayList<>();
             for (DishEntity entity : relatedDishesEntity){
-                RelatedDish relatedDish = new RelatedDish(entity.getId(), entity.getName(), 0);
+                RelatedDish relatedDish = new RelatedDish(entity.getId(), entity.getName(), entity.getImageLink());
                 relatedDishes.add(relatedDish);
             }
             dish.setRelatedDishes(relatedDishes);
@@ -84,6 +92,11 @@ public class DishService {
        List<DishEntity> dishes = new ArrayList<>();
        try {
             dishes = dishRepository.findByCategoryId(categoryId);
+            for (DishEntity dish : dishes){
+                List<CourseEntity> courses = courseRepository.findByDishId(dish.getId());
+                dish.setCourses(courses);
+            }
+
            responseHeaders.set(SUCCESS, "get dishes success");
        } catch (Exception e){
             e.printStackTrace();

@@ -10,11 +10,22 @@ import java.util.Objects;
 public class ReviewEntity {
     private int id;
     private String dishId;
-    private String userId;
     private String comment;
     private Double rate;
     private Timestamp reviewOn;
     private Boolean isDelete;
+
+    private UserEntity userReview;
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="UserId")
+    public UserEntity getUserReview() {
+        return userReview;
+    }
+
+    public void setUserReview(UserEntity userReview) {
+        this.userReview = userReview;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,16 +46,6 @@ public class ReviewEntity {
 
     public void setDishId(String dishId) {
         this.dishId = dishId;
-    }
-
-    @Basic
-    @Column(name = "UserId")
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     @Basic
@@ -94,7 +95,6 @@ public class ReviewEntity {
         ReviewEntity that = (ReviewEntity) o;
         return id == that.id &&
                 Objects.equals(dishId, that.dishId) &&
-                Objects.equals(userId, that.userId) &&
                 Objects.equals(comment, that.comment) &&
                 Objects.equals(rate, that.rate) &&
                 Objects.equals(reviewOn, that.reviewOn) &&
@@ -103,6 +103,6 @@ public class ReviewEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dishId, userId, comment, rate, reviewOn, isDelete);
+        return Objects.hash(id, dishId, comment, rate, reviewOn, isDelete);
     }
 }

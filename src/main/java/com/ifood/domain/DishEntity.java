@@ -5,8 +5,10 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Predicate;
 
 
 @Entity
@@ -49,6 +51,18 @@ public class DishEntity {
     }
 
     public void setIngredients(List<IngredientEntity> ingredients) {
+        for (IngredientEntity ingredientEntity : ingredients){
+            List<DishIngredientEntity> dishIngredientEntity = ingredientEntity.getDishIngredients();
+            dishIngredientEntity.removeIf(new Predicate<DishIngredientEntity>() {
+                @Override
+                public boolean test(DishIngredientEntity dishIngredientEntity) {
+                    boolean flag = !dishIngredientEntity.getDishId().equals(id);
+                    return flag;
+                }
+            });
+            ingredientEntity.setAmount(dishIngredientEntity.get(0));
+            ingredientEntity.setDishIngredients(null);
+        }
         this.ingredients = ingredients;
     }
 
