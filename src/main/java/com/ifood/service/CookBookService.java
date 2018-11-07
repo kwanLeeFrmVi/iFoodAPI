@@ -113,7 +113,7 @@ public class CookBookService {
         ResponseEntity<Object> result = null;
         try {
             for (CookBookDishEntity cbd : cbDishList) {
-                if (cbd.getDishId() != null && cbd.getCookbookId() > 0){
+                if (cbd.getDishId() != null && cbd.getCookbookId()!=null){
                     cookBookDishRepository.save(cbd);
                 }
             }
