@@ -2,10 +2,8 @@ package com.ifood.service;
 
 import com.ifood.domain.*;
 import com.ifood.domain.model.RelatedDish;
-import com.ifood.repository.CourseRepository;
-import com.ifood.repository.DishRepository;
-import com.ifood.repository.IngredientRepository;
-import com.ifood.repository.ReviewRepository;
+import com.ifood.domain.model.ReviewByUser;
+import com.ifood.repository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -30,6 +28,8 @@ public class DishService {
     private ReviewRepository reviewRepository;
     @Autowired(required = true)
     private CourseRepository courseRepository;
+    @Autowired(required = true)
+    private StepByStepRepository stepByStepRepository;
 
     public ResponseEntity<Object> getDishesById (String dishId){
         HttpHeaders responseHeaders = new HttpHeaders();
@@ -47,9 +47,20 @@ public class DishService {
             List<IngredientEntity> ingredients = ingredientRepository.findByDishId(dish.getId());
             dish.setIngredients(ingredients);
 
+            //Step By Step
+            List<StepByStepEntity> stepByStep = stepByStepRepository.findByDishId(dishId);
+            dish.setStepByStep(stepByStep);
+
             //Reviews
-            List<ReviewEntity> reviews = reviewRepository.findByDishIdAndDelete(dish.getId(), false);
-            dish.setReviewes(reviews);
+            List<ReviewEntity> reviewEntities = reviewRepository.findReviewEntitiesByDishId(dish.getId());
+            List<ReviewEntity> reviews = new ArrayList<>();
+
+            for (Object reviewEntity : reviewEntities){
+                Object[] objects = (Object[]) reviewEntity;
+                ReviewEntity review = (ReviewEntity) objects[0];
+                reviews.add(review);
+            }
+            dish.setReviews(reviews);
 
             //Related Dishes
             List<DishEntity> relatedDishesEntity = new ArrayList<>();
@@ -60,7 +71,7 @@ public class DishService {
             }
             List<RelatedDish> relatedDishes = new ArrayList<>();
             for (DishEntity entity : relatedDishesEntity){
-                RelatedDish relatedDish = new RelatedDish(entity.getId(), entity.getName(), 0);
+                RelatedDish relatedDish = new RelatedDish(entity.getId(), entity.getName(), entity.getImageLink());
                 relatedDishes.add(relatedDish);
             }
             dish.setRelatedDishes(relatedDishes);
@@ -81,6 +92,11 @@ public class DishService {
        List<DishEntity> dishes = new ArrayList<>();
        try {
             dishes = dishRepository.findByCategoryId(categoryId);
+            for (DishEntity dish : dishes){
+                List<CourseEntity> courses = courseRepository.findByDishId(dish.getId());
+                dish.setCourses(courses);
+            }
+
            responseHeaders.set(SUCCESS, "get dishes success");
        } catch (Exception e){
             e.printStackTrace();

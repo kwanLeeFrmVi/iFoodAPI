@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 import static com.ifood.config.Constants.*;
@@ -112,8 +113,9 @@ public class CookBookService {
         ResponseEntity<Object> result = null;
         try {
             for (CookBookDishEntity cbd : cbDishList) {
-                if (cbd.getDishId() != null && cbd.getCookbookId() > 0)
+                if (cbd.getDishId() != null && cbd.getCookbookId() > 0){
                     cookBookDishRepository.save(cbd);
+                }
             }
             result = new ResponseEntity<>(SUCCESS, HttpStatus.ACCEPTED);
         } catch (Exception e) {

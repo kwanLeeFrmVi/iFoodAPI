@@ -19,7 +19,7 @@ public class CategoryController {
         return categoryService.getAllCategories();
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<Object> getCategoryById(String categoryId){
         return categoryService.getCategoryById(categoryId);
     }

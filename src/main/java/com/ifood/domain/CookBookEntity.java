@@ -26,6 +26,7 @@ public class CookBookEntity {
     private Boolean isDelete;
     @JsonProperty("dishOfCookBook")
     private List<CookBookDishEntity> dishOfCookBook;
+    private String imageLink;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -113,5 +114,15 @@ public class CookBookEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, userId, description, createOn, isDelete);
+    }
+
+    @Basic
+    @Column(name = "ImageLink")
+    public String getImageLink() {
+        return imageLink;
+    }
+
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
     }
 }

@@ -1,6 +1,7 @@
 package com.ifood.domain;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -14,6 +15,34 @@ public class IngredientEntity {
     private String unitId;
     private Double pricePerUnit;
     private Boolean isDelete;
+
+    @OneToMany(mappedBy = "dishIngredient")
+    private List<DishIngredientEntity> dishIngredients;
+
+    @OneToMany(mappedBy = "dishIngredient")
+    public List<DishIngredientEntity> getDishIngredients() {
+        return dishIngredients;
+    }
+
+    public void setDishIngredients(List<DishIngredientEntity> dishIngredients) {
+        this.dishIngredients = dishIngredients;
+    }
+
+    @Transient
+    private Double amount;
+
+    @Transient
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
+    public void setAmount(DishIngredientEntity dishIngredientEntity){
+        this.amount = dishIngredientEntity.getAmount();
+    }
 
     @Id
     @Column(name = "Id")

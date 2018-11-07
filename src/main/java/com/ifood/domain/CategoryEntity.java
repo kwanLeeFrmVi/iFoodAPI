@@ -8,7 +8,7 @@ import java.util.Objects;
 
 
 @Entity
-@Table(name = "\"Category\"", schema = "dbo", catalog = "I_Food")
+@Table(name = "Category", schema = "dbo", catalog = "I_Food")
 public class CategoryEntity {
     @JsonProperty("id")
     private String id;
@@ -20,6 +20,8 @@ public class CategoryEntity {
     private Boolean isActive;
     @JsonIgnore
     private Boolean isDelete;
+    private String imageLink;
+    private Integer displayOrder;
 
     @Id
     @Column(name = "Id")
@@ -86,5 +88,25 @@ public class CategoryEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, description, isActive, isDelete);
+    }
+
+    @Basic
+    @Column(name = "ImageLink")
+    public String getImageLink() {
+        return imageLink;
+    }
+
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
+    }
+
+    @Basic
+    @Column(name = "DisplayOrder")
+    public Integer getDisplayOrder() {
+        return displayOrder;
+    }
+
+    public void setDisplayOrder(Integer displayOrder) {
+        this.displayOrder = displayOrder;
     }
 }
