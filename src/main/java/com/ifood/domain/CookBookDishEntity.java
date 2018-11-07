@@ -9,7 +9,7 @@ import java.util.Objects;
 public class CookBookDishEntity {
     private int id;
     private String dishId;
-    private int cookbookId;
+    private String cookbookId;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,11 +34,11 @@ public class CookBookDishEntity {
 
     @Basic
     @Column(name = "CookbookId")
-    public int getCookbookId() {
+    public String getCookbookId() {
         return cookbookId;
     }
 
-    public void setCookbookId(int cookbookId) {
+    public void setCookbookId(String cookbookId) {
         this.cookbookId = cookbookId;
     }
 
