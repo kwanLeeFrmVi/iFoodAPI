@@ -22,10 +22,10 @@ public class AccountController {
         return accountService.createUser(newUser);
     }
 
-    @GetMapping("")
-    public ResponseEntity<Object> getUserById(@RequestParam("userId") String userId){
-        return accountService.getUserById(userId);
-    }
+//    @GetMapping("/getbyemail")
+//    public User getUserByEmail(@RequestParam("email") String email){
+//        return manageAccount.getUserByEmail(email);
+//    }
 
     @PostMapping("/checklogin")
     public ResponseEntity<Object> checkLogin(@RequestBody UserEntity newUser){
