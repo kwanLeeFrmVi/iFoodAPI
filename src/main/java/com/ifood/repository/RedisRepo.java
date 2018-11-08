@@ -12,7 +12,7 @@ public class RedisRepo<T> {
     private Jedis jedis;
     private Class<T> tClass;
     public void startConnection(){
-        jedis = new Jedis("TestRedisss.redis.cache.windows.net", 6380);
+        jedis = new Jedis("TestRedisss.redis.cache.windows.net", 6379);
 //        jedis.connect();
         jedis.auth("tFYgxtUAu374UO3YX6wWe4FKhSjhWZlaID55fPQa9J4=");
 //        jedis.flushAll();
@@ -23,23 +23,33 @@ public class RedisRepo<T> {
             jedis.set(key, new Gson().toJson(value));
         }
     }
-    public T getFromRedis(String key){
+    public T getFromRedis(String key , Class<T> clssType){
+        tClass = clssType;
         T result = null;
         if (jedis!=null ){
             result = new Gson().fromJson(jedis.get(key), tClass);
         }
         return result;
     }
-    public List<T> getListFromRedis(String key){
+    public List<T> getListFromRedis(String key, Class<T> clssType){
         List<T> result = null;
         if (jedis!=null ){
             result = new ArrayList<>();
             for(String st: jedis.mget(key)){
-                result.add(new Gson().fromJson(st,tClass));
+                result.add(new Gson().fromJson(st,clssType));
             }
 
         }
         return result;
+    }
+
+    public List<String> getRawListRedis(String key){
+        List<String> result = null;
+        if(jedis!=null){
+            result = jedis.mget(key);
+        }
+        return result;
+
     }
     public void close(){
         jedis.disconnect();

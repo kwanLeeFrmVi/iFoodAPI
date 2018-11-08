@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -40,9 +41,9 @@ public class DishController {
 
     @GetMapping("/gettest")
     public  ResponseEntity<Object> getDishesById(@RequestParam("key") String key){
-        RedisRepo<JsonObject> redis = new RedisRepo<JsonObject>();
+        RedisRepo<String> redis = new RedisRepo<String>();
         redis.startConnection();
-        List<JsonObject> tesObj = redis.getListFromRedis(key);
+        List<String> tesObj = redis.getRawListRedis(key);
         redis.close();
         ResponseEntity<Object> result = new ResponseEntity<>(tesObj, HttpStatus.ACCEPTED);
         return result;
