@@ -35,8 +35,9 @@ public class RedisRepo<T> {
         List<T> result = null;
         if (jedis!=null ){
             result = new ArrayList<>();
-            for(String st: jedis.mget(key)){
-                result.add(new Gson().fromJson(st,clssType));
+            for(String st: jedis.lrange(key, 0,9999999999999L)){
+                T tc = new Gson().fromJson(st,clssType);
+                result.add(tc);
             }
 
         }

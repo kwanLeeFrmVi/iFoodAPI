@@ -41,11 +41,31 @@ public class DishController {
 
     @GetMapping("/gettest")
     public  ResponseEntity<Object> getDishesById(@RequestParam("key") String key){
-        RedisRepo<String> redis = new RedisRepo<String>();
+        RedisRepo<testClass> redis = new RedisRepo<testClass>();
         redis.startConnection();
-        List<String> tesObj = redis.getRawListRedis(key);
+        List<testClass> tesObj = redis.getListFromRedis(key, testClass.class);
         redis.close();
         ResponseEntity<Object> result = new ResponseEntity<>(tesObj, HttpStatus.ACCEPTED);
         return result;
+    }
+    class testClass{
+        private int id;
+        private String name;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
     }
 }
