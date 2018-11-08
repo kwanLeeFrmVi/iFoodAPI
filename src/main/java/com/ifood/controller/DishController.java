@@ -1,5 +1,7 @@
 package com.ifood.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.ifood.domain.DishEntity;
 import com.ifood.repository.RedisRepo;
 import com.ifood.service.DishService;
@@ -36,12 +38,13 @@ public class DishController {
         return dishService.getDishesByCourses(courses, dishId);
     }
 
-    @GetMapping("/getredish")
-    public  ResponseEntity<Object> getDishesById(@RequestParam String id){
-        RedisRepo<DishEntity> redis = new RedisRepo<DishEntity>();
+    @GetMapping("/gettest")
+    public  ResponseEntity<Object> getDishesById(@RequestParam("key") String key){
+        RedisRepo<JsonObject> redis = new RedisRepo<JsonObject>();
         redis.startConnection();
-        DishEntity dish = redis.getFromRedis("dish");
-        ResponseEntity<Object> result = new ResponseEntity<>(dish, HttpStatus.ACCEPTED);
+        List<JsonObject> tesObj = redis.getListFromRedis(key);
+        redis.close();
+        ResponseEntity<Object> result = new ResponseEntity<>(tesObj, HttpStatus.ACCEPTED);
         return result;
     }
 }
