@@ -1,7 +1,6 @@
 package com.ifood.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -24,12 +23,12 @@ public class CookBookEntity {
     private Timestamp createOn;
     @JsonProperty("isDelete")
     private Boolean isDelete;
-    @JsonProperty("dishOfCookBook")
-    private List<CookBookDishEntity> dishOfCookBook;
+    @JsonProperty("dishesInCookbook")
+    @Transient
+    private List<DishEntity> dishesInCookbook;
     private String imageLink;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     public String getId() {
         return id;
@@ -90,12 +89,15 @@ public class CookBookEntity {
     }
 
     @Transient
-    public List<CookBookDishEntity> getDishOfCookBook() {
-        return dishOfCookBook;
+    public List<DishEntity> getDishesInCookbook() {
+        return dishesInCookbook;
     }
 
-    public void setDishOfCookBook(List<CookBookDishEntity> dishOfCookBook) {
-        this.dishOfCookBook = dishOfCookBook;
+    public void setDishesInCookbook(List<DishEntity> dishesInCookbook) {
+        for (DishEntity dish : dishesInCookbook){
+            dish.setListDishInCookbook(null);
+        }
+        this.dishesInCookbook = dishesInCookbook;
     }
 
     @Override

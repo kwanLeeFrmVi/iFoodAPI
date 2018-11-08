@@ -36,6 +36,17 @@ public class DishEntity {
     @Transient
     private List<RelatedDish> relatedDishes;
 
+    private List<CookBookDishEntity> listDishInCookbook;
+
+    @OneToMany(mappedBy = "dishInCookbook")
+    public List<CookBookDishEntity> getListDishInCookbook() {
+        return listDishInCookbook;
+    }
+
+    public void setListDishInCookbook(List<CookBookDishEntity> listDishInCookbook) {
+        this.listDishInCookbook = null;
+    }
+
     @Transient
     public List<CourseEntity> getCourses() {
         return courses;

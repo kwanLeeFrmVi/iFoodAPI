@@ -1,7 +1,12 @@
 package com.ifood.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import com.ifood.domain.CookBookDishEntity;
 import com.ifood.domain.CookBookEntity;
+import com.ifood.domain.DishEntity;
 import com.ifood.service.CookBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +29,9 @@ public class CookBookController {
     public ResponseEntity<Object> getCookBook(@RequestParam("id")int id ){
         return cookBookService.getCookbook(id);
     }
-    @GetMapping("/user")
-    public ResponseEntity<Object> getCookBook(@RequestParam("id")String userId ){
+
+    @GetMapping("/byUserId")
+    public ResponseEntity<Object> getCookBook(@RequestParam("userId") String userId ){
         return cookBookService.getCookbookByUserId(userId);
     }
     @PostMapping("")
@@ -44,5 +50,16 @@ public class CookBookController {
     @DeleteMapping("/dish")
     public ResponseEntity<Object> deleteDishFromCookBook(@RequestBody List<CookBookDishEntity> listDish){
         return cookBookService.removeDishOutCookBook(listDish);
+    }
+
+    @PostMapping("/syncCookbook")
+    public ResponseEntity<Object> syncCookbooks(@RequestParam String userId, @RequestBody String resquest){
+        JsonArray requestJson = new Gson().fromJson(resquest, JsonArray.class);
+        List<CookBookEntity> cookbooks = new Gson().fromJson(requestJson,  new TypeToken<List<CookBookEntity>>(){}.getType());
+        for (int i = 0; i < cookbooks.size(); i++){
+            List<DishEntity> dishesInCookbook = new Gson().fromJson(requestJson.get(i).getAsJsonObject().get("dishesInCookBook").toString(),  new TypeToken<List<DishEntity>>(){}.getType());
+            cookbooks.get(i).setDishesInCookbook(dishesInCookbook);
+        }
+        return cookBookService.syncCookbook(userId, cookbooks);
     }
 }
