@@ -36,6 +36,10 @@ public class IngredientEntity {
         return amount;
     }
 
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
     public void setAmount(DishIngredientEntity dishIngredientEntity){
         this.amount = dishIngredientEntity.getAmount();
     }

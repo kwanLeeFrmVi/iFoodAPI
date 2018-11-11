@@ -10,8 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 import static com.ifood.config.Constants.*;
 
 @Service
@@ -42,23 +40,6 @@ public class AccountService {
         try {
             userData = userAccountRepository.findByEmail(user.getEmail());
             if (userData != null && EncryptionDecryption.checkLogin(user.getPassword(), userData.getPassword())) {
-                result = new ResponseEntity<>(userData, HttpStatus.ACCEPTED);
-            } else {
-                result = new ResponseEntity<>(null, HttpStatus.ACCEPTED);
-            }
-        } catch (Exception e) {
-            myLoger(e);
-        } finally {
-            return result;
-        }
-    }
-
-    public ResponseEntity<Object> getUserById(String userId) {
-        ResponseEntity<Object> result = new ResponseEntity<>(ERROR, HttpStatus.BAD_REQUEST);
-        Optional<UserEntity> userData = null;
-        try {
-            userData = userAccountRepository.findById(userId);
-            if (userData.isPresent()) {
                 result = new ResponseEntity<>(userData, HttpStatus.ACCEPTED);
             }
         } catch (Exception e) {
