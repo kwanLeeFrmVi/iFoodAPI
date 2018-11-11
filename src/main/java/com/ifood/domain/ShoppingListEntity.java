@@ -9,13 +9,15 @@ import java.util.Objects;
 public class ShoppingListEntity {
     private int id;
     private String userId;
-    private int transactionId;
+    private String transactionId;
     private String dishId;
     private String ingredientId;
     private String description;
     private Integer status;
+    private Double amount;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     public int getId() {
         return id;
@@ -37,11 +39,11 @@ public class ShoppingListEntity {
 
     @Basic
     @Column(name = "TransactionId")
-    public int getTransactionId() {
+    public String getTransactionId() {
         return transactionId;
     }
 
-    public void setTransactionId(int transactionId) {
+    public void setTransactionId(String transactionId) {
         this.transactionId = transactionId;
     }
 
@@ -102,5 +104,15 @@ public class ShoppingListEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id, userId, transactionId, dishId, ingredientId, description, status);
+    }
+
+    @Basic
+    @Column(name = "Amount")
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
     }
 }
