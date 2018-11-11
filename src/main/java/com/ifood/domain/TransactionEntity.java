@@ -1,16 +1,14 @@
 package com.ifood.domain;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 
 @Entity
-@Table(name = "\"Transaction\"", schema = "dbo", catalog = "I_Food")
+@Table(name = "Transaction", schema = "dbo", catalog = "I_Food")
 public class TransactionEntity {
-    private String id;
+    private int id;
     private String userId;
     private String city;
     private String district;
@@ -23,11 +21,11 @@ public class TransactionEntity {
 
     @Id
     @Column(name = "Id")
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
