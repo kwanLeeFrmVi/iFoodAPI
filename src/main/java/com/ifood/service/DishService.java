@@ -92,11 +92,14 @@ public class DishService {
         List<DishEntity> dishes = new ArrayList<>();
         try {
             dishes = dishRepository.findByCategoryId(categoryId);
-            for (DishEntity dish : dishes) {
-                List<CourseEntity> courses = courseRepository.findByDishId(dish.getId());
-                dish.setCourses(courses);
+            if (dishes != null && !dishes.isEmpty()){
+                for (DishEntity dish : dishes) {
+                    List<CourseEntity> courses = courseRepository.findByDishId(dish.getId());
+                    dish.setCourses(courses);
+                }
+            } else {
+                dishes = new ArrayList<>();
             }
-
             result = new ResponseEntity<>(dishes, HttpStatus.ACCEPTED);
         } catch (Exception e) {
             e.printStackTrace();

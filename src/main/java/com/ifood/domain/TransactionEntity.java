@@ -1,9 +1,11 @@
 package com.ifood.domain;
 
+import com.ifood.domain.model.TransactionDetail;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -20,6 +22,18 @@ public class TransactionEntity {
     private Double totalPrice;
     private Double discount;
     private Timestamp createdOn;
+
+    @Transient
+    private List<TransactionDetail> shoppingLists;
+
+    @Transient
+    public List<TransactionDetail> getShoppingLists() {
+        return shoppingLists;
+    }
+
+    public void setShoppingLists(List<TransactionDetail> shoppingLists) {
+        this.shoppingLists = shoppingLists;
+    }
 
     @Id
     @Column(name = "Id")

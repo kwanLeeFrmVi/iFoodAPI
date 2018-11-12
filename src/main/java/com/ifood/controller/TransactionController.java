@@ -9,10 +9,7 @@ import com.ifood.domain.UserEntity;
 import com.ifood.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -28,5 +25,10 @@ public class TransactionController {
         TransactionEntity transaction = new Gson().fromJson(json.get("transaction"), TransactionEntity.class);
         List<ShoppingListEntity> shoppingLists = new Gson().fromJson(json.get("shoppingLists"),  new TypeToken<List<ShoppingListEntity>>(){}.getType());
         return transactionService.createTransaction(json.get("userId"), transaction, Float.parseFloat(json.get("totalPrice")), shoppingLists);
+    }
+
+    @GetMapping("/getByUserId")
+    public ResponseEntity<Object> getTransactionByUserId (@RequestParam String userId){
+        return transactionService.getTransactionByUserId(userId);
     }
 }

@@ -75,8 +75,8 @@ public class CookBookService {
                     }
                     cb.setDishesInCookbook(dishesInCookbook);
                 }
-                result = new ResponseEntity<>(cookbooks, HttpStatus.ACCEPTED);
             }
+            result = new ResponseEntity<>(cookbooks, HttpStatus.ACCEPTED);
         } catch (Exception e) {
             log.error(e.getMessage());
         } finally {
