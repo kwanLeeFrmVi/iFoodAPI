@@ -1,8 +1,5 @@
 package com.ifood.controller;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.ifood.domain.DishEntity;
 import com.ifood.repository.RedisRepo;
 import com.ifood.service.DishService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -49,23 +45,23 @@ public class DishController {
         return result;
     }
     class testClass{
-        private int id;
-        private String name;
+        private int Id;
+        private String Name;
 
         public int getId() {
-            return id;
+            return Id;
         }
 
         public void setId(int id) {
-            this.id = id;
+            this.Id = id;
         }
 
         public String getName() {
-            return name;
+            return Name;
         }
 
         public void setName(String name) {
-            this.name = name;
+            this.Name = name;
         }
     }
 }
