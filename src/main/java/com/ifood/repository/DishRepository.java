@@ -16,7 +16,7 @@ public interface DishRepository extends CrudRepository<DishEntity, String> {
 
     @Query("Select dish From DishEntity dish join CategoryDishEntity cd on dish.id = cd.dishId" +
             " join CategoryEntity category on category.id = cd.categoryId" +
-            " Where category.id = :categoryId And dish.delete = false ")
+            " Where category.id = :categoryId And dish.delete = false And dish.active = true")
     List<DishEntity> findByCategoryId (@Param("categoryId") String categoryId);
 
     @Query("SELECT dish FROM DishEntity dish WHERE dish.name like %:string% AND dish.delete = false ")
