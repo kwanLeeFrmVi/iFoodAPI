@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface TransactionRepository extends CrudRepository<TransactionEntity, String> {
-    List<TransactionEntity> findByUserId(String userId);
+    List<TransactionEntity> findByUserIdOrderByCreatedOnDesc(String userId);
 }

@@ -10,10 +10,11 @@ import java.util.List;
 
 @Repository
 public interface ShoppingListRepository extends CrudRepository<ShoppingListEntity, String> {
-    @Query("Select dish.name as dishName, ingredient.name as ingredientName, user.name as userName, shopping.amount as amount" +
+    @Query("Select dish.name as dishName, ingredient.name as ingredientName, user.name as userName" +
+            ", shopping.amount as amount, ingredient.pricePerUnit as pricePerUnit, dish.imageLink as imageLink, ingredient.unitId as unit " +
             " From ShoppingListEntity shopping join DishEntity dish on shopping.dishId = dish.id " +
             " join IngredientEntity ingredient on shopping.ingredientId = ingredient.id " +
             " join UserEntity user on shopping.userId = user.id" +
-            " Where shopping.transactionId = :transactionId")
+            " Where shopping.transactionId = :transactionId order by dish.name")
     List<Object> findByTransactionId(@Param("transactionId") String transactionId);
 }

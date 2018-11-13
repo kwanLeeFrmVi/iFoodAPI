@@ -56,7 +56,7 @@ public class TransactionService {
         ResponseEntity<Object> result = new ResponseEntity<>(ERROR, HttpStatus.BAD_REQUEST);
         List<TransactionEntity> transactions;
         try {
-            transactions = transactionRepository.findByUserId(userId);
+            transactions = transactionRepository.findByUserIdOrderByCreatedOnDesc(userId);
 
             if (transactions != null && !transactions.isEmpty()){
                 for (TransactionEntity transaction : transactions){
@@ -68,7 +68,11 @@ public class TransactionService {
                         transactionDetail.setDishName(objects1[0].toString());
                         transactionDetail.setIngredientName(objects1[1].toString());
                         transactionDetail.setUserName(objects1[2].toString());
-                        transactionDetail.setStatus(objects1[3] != null ? objects1[3].toString() : "1");
+                        transactionDetail.setAmount(objects1[3] != null ? objects1[3].toString() : "0");
+                        transactionDetail.setPricePerUnit(objects1[4] != null ? objects1[4].toString() : "100");
+                        transactionDetail.setDishImage(objects1[5] != null ? objects1[5].toString() : "empty");
+                        transactionDetail.setUnit(objects1[6] != null ? objects1[6].toString() : "1");
+
                         transactionDetails.add(transactionDetail);
                     }
                     transaction.setShoppingLists(transactionDetails);
