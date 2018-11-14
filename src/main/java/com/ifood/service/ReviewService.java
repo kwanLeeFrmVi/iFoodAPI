@@ -1,7 +1,9 @@
 package com.ifood.service;
 
+import com.ifood.domain.DishEntity;
 import com.ifood.domain.ReviewEntity;
 import com.ifood.domain.UserEntity;
+import com.ifood.repository.DishRepository;
 import com.ifood.repository.ReviewRepository;
 import com.ifood.repository.UserAccountRepository;
 import com.ifood.util.EncryptionDecryption;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Optional;
 
 import static com.ifood.config.Constants.ERROR;
@@ -26,6 +29,8 @@ public class ReviewService {
     private ReviewRepository reviewRepository;
     @Autowired(required = true)
     private UserAccountRepository userAccountRepository;
+    @Autowired(required = true)
+    private DishRepository dishRepository;
 
     public ResponseEntity<Object> submitReviewByUser(String userId, String dishId, String comment, double rate){
         ResponseEntity<Object> result = new ResponseEntity<>(ERROR, HttpStatus.BAD_REQUEST);
@@ -37,6 +42,22 @@ public class ReviewService {
         reviewEntity.setRate(rate);
         reviewEntity.setDelete(false);
         reviewEntity.setReviewOn(new Timestamp(System.currentTimeMillis()));
+
+        List<ReviewEntity> reviewedDish = reviewRepository.findByDishId(dishId);
+        double rated = rate;
+        if (reviewedDish != null && !reviewedDish.isEmpty()){
+            for (ReviewEntity reviewed : reviewedDish){
+                rated += reviewed.getRate();
+            }
+            rated = rated / (reviewedDish.size() + 1);
+        }
+
+        Optional<DishEntity> dish = dishRepository.findById(dishId);
+        if (dish.isPresent()){
+            dish.get().setRate(rated);
+            dishRepository.save(dish.get());
+        }
+
         try {
             reviewEntity = reviewRepository.save(reviewEntity);
             result = new ResponseEntity<>(reviewEntity, HttpStatus.ACCEPTED);

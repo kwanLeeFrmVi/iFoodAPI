@@ -15,4 +15,6 @@ public interface ReviewRepository extends CrudRepository<ReviewEntity, String> {
     @Query("Select r as Review, u as User From ReviewEntity r join UserEntity u on r.userReview.id = u.id" +
             " where r.dishId = :dishId And r.delete = false")
     List<ReviewEntity> findReviewEntitiesByDishId (@Param("dishId") String dishId);
+
+    List<ReviewEntity> findByDishId(String dishId);
 }
